@@ -1,0 +1,35 @@
+.header{
+  -webkit-box-shadow: 0 1px 3px rgb(0 0 0 / 8%);
+  -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 8%);
+  background: #ffffff;
+}
+.navbar-light .navbar-nav .nav-link{
+  font-size: .8rem;
+}
+.search-control {
+  border: 1px solid #F5F5F6;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  background: #F5F5F6;
+  color: #696E79;
+  font-size: .8rem;
+}
+.App {
+  padding-top: 5rem;
+}
+.left-panel h6{
+  color: #7e818c;
+}
+.left-panel a{
+  color: rgba(0,0,0,.55);
+  text-decoration: none;
+}
+.left-panel a.active{
+  color: #14cda8;
+  font-weight: 600;
+}
+.table-sec {
+  padding: 1rem 2.6rem;
+}
