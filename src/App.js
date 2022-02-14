@@ -1,6 +1,6 @@
 import Header from './components/header';
 import Profile from './components/profile/profile';
-import './App.css';
+import './custom.css';
 
 function App() {
   return (

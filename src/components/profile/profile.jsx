@@ -1,5 +1,5 @@
 import React from "react";
-import Overview from "./overview";
+import ProfileDetails from "./profileDetails";
 
 class Profile extends React.Component{
     constructor(props){
@@ -16,7 +16,7 @@ class Profile extends React.Component{
                     <div className="account-heading fw-bold"> Account</div>
                     <div><small>John</small></div>
                 </div>
-                <Overview/>
+                <ProfileDetails/>
             </div>
         )
     }

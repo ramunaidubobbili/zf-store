@@ -1,6 +1,7 @@
 import React from "react";
+import LeftPanel from "./leftPanel";
 
-class Overview extends React.Component{
+class ProfileDetails extends React.Component{
     constructor(props){
         super(props)
         this.state = {
@@ -12,33 +13,7 @@ class Overview extends React.Component{
         return(
             <div className="row">
                 <div className="col-sm-12 col-md-2">
-                    <ul className="left-panel list-group list-group-flush border-end pe-4">
-                        <li className="list-group-item ps-0 py-4">
-                            <a href="" className="p-0 active">Overview</a>
-                        </li>
-                        <li className="list-group-item ps-0 py-4">
-                            <h6 className="fw-normal text-uppercase">Orders</h6>
-                            <a href="" className="p-0 d-block">Orders &amp; Returns</a>
-                        </li>
-                        <li className="list-group-item ps-0 py-4">
-                            <h6 className="fw-normal text-uppercase">credits</h6>
-                            <a href="" className="p-0 d-block">Coupons</a>
-                            <a href="" className="p-0 d-block">ZF Credits</a>
-                            <a href="" className="p-0 d-block">ZFCash</a>
-                        </li>
-                        <li className="list-group-item ps-0 py-4">
-                            <h6 className="fw-normal text-uppercase">Account</h6>
-                            <a href="" className="p-0 d-block">Profile</a>
-                            <a href="" className="p-0 d-block">Saved Cards</a>
-                            <a href="" className="p-0 d-block">Addresses</a>
-                            <a href="" className="p-0 d-block">ZF Insider</a>
-                        </li>
-                        <li className="list-group-item ps-0 py-4">
-                            <h6 className="fw-normal text-uppercase">Legal</h6>
-                            <a href="" className="p-0 d-block">Terms of Use</a>
-                            <a href="" className="p-0 d-block">Privacy Policy</a>
-                        </li>
-                    </ul>
+                    <LeftPanel/>
                 </div>
                 <div className="col-sm-12 col-md-10">
                     <div className="page-profile my-4">
@@ -91,4 +66,4 @@ class Overview extends React.Component{
         )
     }
 }
-export default Overview;
+export default ProfileDetails;
