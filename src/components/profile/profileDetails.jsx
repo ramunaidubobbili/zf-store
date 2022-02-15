@@ -35,23 +35,7 @@ class ProfileDetails extends React.Component{
                                             <td>jhondoe@gmail.com</td>
                                         </tr>
                                         <tr>
-                                            <td>Gender</td>
-                                            <td>MALE</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Date of Birth</td>
-                                            <td>- not added -</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Location</td>
-                                            <td>- not added -</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Alternate Mobile</td>
-                                            <td>- not added -</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Hint Name</td>
+                                            <td>Address</td>
                                             <td>- not added -</td>
                                         </tr>
                                     </tbody>

@@ -33,3 +33,6 @@
 .table-sec {
   padding: 1rem 2.6rem;
 }
+.left-menu, .left-menu.list-group-item{
+  background: #f5f5f6;
+}
