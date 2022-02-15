@@ -36,7 +36,7 @@ class ProfileDetails extends React.Component{
                                         </tr>
                                         <tr>
                                             <td>Address</td>
-                                            <td>-not added-</td>
+                                            <td>- not added -</td>
                                         </tr>
                                     </tbody>
                                 </table>
