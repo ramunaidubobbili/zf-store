@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 class Header extends React.Component{
     constructor(props){
@@ -18,30 +19,37 @@ class Header extends React.Component{
                                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
                                     <span className="navbar-toggler-icon"></span>
                                 </button>
-                                <a className="navbar-brand" href="./home">ZF Store</a>
-                                <div className="collapse navbar-collapse justify-content-end" id="navbarTogglerDemo03">
+                                <Link to="/" className="navbar-brand">ZF Store</Link>
+                                <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
+                                    <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                                    <li className="nav-item">
+                                        <Link to="/admin" className="nav-link text-uppercase fw-bold px-md-3">
+                                            Admin
+                                        </Link>
+                                    </li>
+                                    </ul>
                                     <form className="d-flex w-25 me-4">
-                                    <input className="form-control search-control me-2" type="search" placeholder="Search for products, brands and more" aria-label="Search"/>
+                                        <input className="form-control search-control me-2" type="search" placeholder="Search for products, brands and more" aria-label="Search"/>
                                     </form>
                                     <ul className="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
-                                    <li>
-                                        <a href="./profile" className="nav-link text-secondary text-center px-2 py-0">
-                                        <i className="fa fa-user d-block mx-auto"></i>
-                                        <small>Profile</small>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="./wishlist" className="nav-link text-secondary text-center px-2 py-0">
-                                        <i className="fa fa-heart d-block mx-auto"></i>
-                                        <small>Wishlist</small>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="./bag" className="nav-link text-secondary text-center px-2 py-0">
-                                        <i className="fa fa-shopping-bag d-block mx-auto"></i>
-                                        <small>Bag</small>
-                                        </a>
-                                    </li>
+                                        <li>
+                                            <Link to="/" className="nav-link text-secondary text-center px-2 py-0">
+                                                <i className="fa fa-user d-block mx-auto"></i>
+                                                <small>Profile</small>
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/" className="nav-link text-secondary text-center px-2 py-0">
+                                                <i className="fa fa-heart d-block mx-auto"></i>
+                                                <small>Wishlist</small>
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/" className="nav-link text-secondary text-center px-2 py-0">
+                                                <i className="fa fa-shopping-bag d-block mx-auto"></i>
+                                                <small>Bag</small>
+                                            </Link>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
