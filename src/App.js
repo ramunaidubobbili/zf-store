@@ -1,6 +1,7 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
+import Layout from "./components/Layout";
 import Home from "./components/home";
 import Admin from "./components/admin/admin";
 import './custom.css';
@@ -8,14 +9,14 @@ import './custom.css';
 function App() {
   return (
     <div className="App">
-      <Router>
-        <main>
-          <Routes>
-            <Route path="/" element={ <Home/> } />
-            <Route path="admin" element={ <Admin/> } />
-          </Routes>
-        </main> 
-      </Router>
+      <main>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/admin/*" element={<Admin />} />
+          </Route>
+        </Routes>
+      </main> 
     </div>
   );
 }
