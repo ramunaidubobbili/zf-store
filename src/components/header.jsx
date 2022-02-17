@@ -20,14 +20,7 @@ class Header extends React.Component{
                                     <span className="navbar-toggler-icon"></span>
                                 </button>
                                 <Link to="/" className="navbar-brand">ZF Store</Link>
-                                <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
-                                    <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                                    <li className="nav-item">
-                                        <Link to="/admin" className="nav-link text-uppercase fw-bold px-md-3">
-                                            Admin
-                                        </Link>
-                                    </li>
-                                    </ul>
+                                <div className="collapse navbar-collapse justify-content-end" id="navbarTogglerDemo03">
                                     <form className="d-flex w-25 me-4">
                                         <input className="form-control search-control me-2" type="search" placeholder="Search for products, brands and more" aria-label="Search"/>
                                     </form>

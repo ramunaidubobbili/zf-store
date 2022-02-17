@@ -1,21 +1,25 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 
-import Layout from "./components/Layout";
-import Home from "./components/home";
+import Login from "./components/login";
 import Admin from "./components/admin/admin";
+import ProtectedRoute from "./components/protectedRoute";
 import './custom.css';
 
 function App() {
   return (
     <div className="App">
       <main>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/admin/*" element={<Admin />} />
-          </Route>
-        </Routes>
+        <Router>
+          <Switch>
+            <Route exact path="/">
+              <Login />
+            </Route>
+            <Route path="/admin">
+              <Admin />
+            </Route>
+          </Switch>
+        </Router>
       </main> 
     </div>
   );

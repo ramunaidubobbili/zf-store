@@ -4,7 +4,7 @@ class Users extends React.Component{
     render(){
         return(
             <div className="col-sm-12 col-md-9">
-                <form className="d-flex me-4 mb-4 pb-3 border-bottom justify-content-end">
+                <form className="d-flex mb-4 pb-3 border-bottom justify-content-end">
                     <input className="form-control form-control-lg search-control w-50" type="search" placeholder="Search for name" aria-label="Search"/>
                 </form>
                 <div className="table-responsive">
