@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import Header from './components/header';
 import Home from "./components/home";
@@ -14,12 +14,20 @@ function App() {
       <Router>
         <Header/>
         <main>
-          <Routes>
-            <Route path="/" element={ <Home/> } />
-            <Route path="profile" element={ <Profile/> } />
-            <Route path="wishlist" element={ <Wishlist/> } />
-            <Route path="cart" element={ <Cart/> } />
-          </Routes>
+          <Switch>
+            <Route exact path="/">
+              <Home/>
+            </Route>
+            <Route path="/profile">
+              <Profile/>
+            </Route>
+            <Route path="/wishlist">
+              <Wishlist/>
+            </Route>
+            <Route path="/cart">
+              <Cart/>
+            </Route>
+          </Switch>
         </main> 
       </Router>
     </div>
