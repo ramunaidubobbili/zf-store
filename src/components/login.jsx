@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect, Route, Link} from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import Header from './header';
 
 class Login extends React.Component {
@@ -15,12 +15,33 @@ class Login extends React.Component {
     };
   }
 
+  handleFormChange = event => {
+    let loginParamsNew = { ...this.state.loginParams };
+    let val = event.target.value;
+    loginParamsNew[event.target.name] = val;
+    this.setState({
+      loginParams: loginParamsNew
+    });
+  };
 
-
-
+  login = event => {
+    debugger;
+    let user_id = this.state.loginParams.user_id;
+    let user_password = this.state.loginParams.user_password;
+    if (user_id === "admin" && user_password === "123") {
+      localStorage.setItem("token", "T");
+      this.setState({
+        islogged: true
+      });
+    }
+    event.preventDefault();
+  };
 
   render() {
-  
+    let token = localStorage.getItem("token");
+    if (token) {
+        return <Redirect to="/" />;
+    }
     return (
       <>
         <Header/>
@@ -39,11 +60,11 @@ class Login extends React.Component {
                           <input type="password" name="user_password" id="user_password" placeholder="Password" onChange={this.handleFormChange} className="py-2 px-3 form-control"/>
                       </div>
                       <div className="d-grid gap-2">
-                          <Link to="/admin" className="py-2 px-3 btn btn-primary">Login</Link>
-                          {/* <button type="submit" onClick={this.login} className="py-2 px-3 btn btn-primary" >Login</button> */}
+                          <button type="submit" onClick={this.login} className="py-2 px-3 btn btn-primary" >Login</button>
                       </div>
                   </form>
               </div>
+              <i className="small text-secondry">Username === "admin" && Password === "123"</i>
             </div>
           </div>
         </div>

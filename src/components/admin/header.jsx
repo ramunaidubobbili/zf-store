@@ -13,7 +13,9 @@ class AdminHeader extends React.Component{
                             </button>
                             <Link to={this.props.match.path} className="navbar-brand">ZF Admin</Link>
                             <div className="collapse navbar-collapse justify-content-end" id="navbarTogglerDemo03">
-                                <Link to="/" className="btn btn-link nav-link text-secondary text-center px-2 py-0">Logout</Link>
+                                <button onClick={this.props.signOut} className=" btn btn-link nav-link text-secondary text-center px-2 py-0">
+                                    Logout
+                                </button>
                             </div>
                         </div>
                     </nav>

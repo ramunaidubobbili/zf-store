@@ -12,11 +12,17 @@ function App() {
       <main>
         <Router>
           <Switch>
-            <Route exact path="/">
+            <Route path="/login">
               <Login />
             </Route>
-            <Route path="/admin">
+            <ProtectedRoute path="/admin">
               <Admin />
+            </ProtectedRoute>
+            <Route exact path="/">
+              <Redirect exact from="/" to="admin" />
+            </Route>
+            <Route path="*">
+              <Redirect from="/" to="admin" />
             </Route>
           </Switch>
         </Router>

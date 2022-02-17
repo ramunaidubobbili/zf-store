@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect, Switch, Route, Link } from "react-router-dom";
+import { Redirect, Switch, Route } from "react-router-dom";
 import { withRouter } from "react-router";
 import AdminHeader from "./header";
 import LeftMenu from "./left-menu";
@@ -15,15 +15,22 @@ class Admin extends React.Component{
           islogout: false
         };
     }
-    
+    signOut = () => {
+        localStorage.removeItem("token");
+        this.setState({
+          islogout: true
+        });
+    };
     render(){
-    
+        if (this.state.islogout) {
+            return <Redirect to="/login" />;
+        }
         const { match } = this.props;
         return(
             <>
-                <AdminHeader match={match} />
-                <div className="container p-4">
-                    <div className="row">
+                <AdminHeader match={match} signOut={this.signOut}/>
+                <div className="container p-4 pt-5">
+                    <div className="row pt-5">
                         <LeftMenu  match={match}/>
                         <Switch>
                             <Route path={`${match.path}/users`}>
