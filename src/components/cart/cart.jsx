@@ -3,8 +3,87 @@ import CiscoWatch from "../../images/watch.webp";
 import Roadstar from "../../images/roadstar.webp";
 import Nikeshoe from "../../images/shoe.webp";
 
+import ServiceRequest from "../api/service";
+
 class Cart extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            data: [],
+            id: null,
+            isLoading: false,
+            quantity: 0
+        }
+    }
+    componentDidMount() {
+        this.fetchData();
+    }
+
+    fetchData = () => {
+        this.setState({
+          isLoading: true
+        })
+        setTimeout(() => {
+          ServiceRequest.getData()
+          .then(response => {
+            this.setState({
+              data: response.data,
+              isLoading: false
+            });
+            console.log(response.data);
+          })
+          .catch((e) => {
+            this.setState({
+              isLoading: false
+            })
+            console.log(e);
+          });
+        }, 1000); 
+    }
+
+    increaseQunatity = (id) => {
+        let data  = {
+            quantity: this.state.data[id-1].quantity+1
+        }
+        setTimeout(() => {
+            ServiceRequest.update(id, data)
+            .then(response => {
+                this.setState(prevState => ({
+                item: {
+                    ...prevState.item
+                }
+                }));
+                console.log("Updated Data: "+response.data);
+                this.fetchData()
+            })
+            .catch(e => {
+                console.log(e);
+            });
+        }, 1000);  
+    }
+    decreaseQunatity = (id) => {
+        let data  = {
+            quantity: this.state.data[id-1].quantity-1
+        }
+        setTimeout(() => {
+            ServiceRequest.update(id, data)
+            .then(response => {
+                this.setState(prevState => ({
+                item: {
+                    ...prevState.item
+                }
+                }));
+                console.log("Updated Data: "+response.data);
+                this.fetchData()
+            })
+            .catch(e => {
+                console.log(e);
+            });
+        }, 1000);  
+    }
+
     render() {
+        const { data } = this.state;
         return (
             <div className="container pt-4">
                 <div className="row">
@@ -34,96 +113,52 @@ class Cart extends React.Component {
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        {this.state.isLoading ?
                                         <tr>
-                                            <td>
-                                                <figure className="itemside d-flex align-items-start">
-                                                    <div className="aside p-2 border rounded me-3">
-                                                        <img src={Nikeshoe} className="img-sm" />
-                                                    </div>
-                                                    <figcaption className=""> 
-                                                        <a href="#" className="title text-decoration-none text-dark" data-abc="true">Men White ZOOM WINFLO 7 Running Shoes</a>
-                                                        <p className="text-muted small mb-0">SIZE: L</p>
-                                                        <p className="text-muted small">Brand: NIKE</p>
-                                                    </figcaption>
-                                                </figure>
-                                            </td>
-                                            <td> 
-                                                <select className="form-control form-control-sm">
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                </select> 
-                                            </td>
-                                            <td>
-                                                <div className="price-wrap">
-                                                    <span className="price fw-bold">$20.00</span>  
+                                            <td colSpan="4" className="text-center">
+                                            <div className="d-flex justify-content-center">
+                                                <div className="spinner-border" role="status">
+                                                    <span className="visually-hidden">Loading...</span>
                                                 </div>
-                                            </td>
-                                            <td align="right">  
-                                                <a href="" className="btn btn-danger btn-sm" data-abc="true"> Remove</a> 
+                                            </div>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td>
-                                                <figure className="itemside d-flex align-items-start">
-                                                    <div className="aside p-2 border rounded me-3">
-                                                        <img src={Roadstar} className="img-sm" />
+                                        :
+                                        data.length !== 0 ?
+                                        data.map((item, index) => (
+                                            <tr key={index}>
+                                                <td>
+                                                    <figure className="itemside d-flex align-items-start">
+                                                        <div className="aside p-2 border rounded me-3">
+                                                            <img src={item.image} className="img-sm" />
+                                                        </div>
+                                                        <figcaption className=""> 
+                                                            <a href="#" className="title text-decoration-none text-dark" data-abc="true">{item.name}</a>
+                                                            <p className="text-muted small mb-0">SIZE: {item.size}</p>
+                                                            <p className="text-muted small">Brand: {item.brand}</p>
+                                                        </figcaption>
+                                                    </figure>
+                                                </td>
+                                                <td>
+                                                    <div className="btn-group" role="group" aria-label="Basic mixed styles example">
+                                                        <button type="button" className="btn btn-sm btn-secondary" onClick={() => this.decreaseQunatity(item.id)}>-</button>
+                                                        <button disabled type="button" className="btn btn-sm btn-sm btn-outline-secondary">{item.quantity}</button>
+                                                        <button type="button" className="btn btn-sm btn-secondary" onClick={() => this.increaseQunatity(item.id)}>+</button>
                                                     </div>
-                                                    <figcaption className=""> 
-                                                        <a href="#" className="title text-decoration-none text-dark" data-abc="true">Men Black Analogue and Digital Multi Function Watch MFB-PN-OS-AD1711</a>
-                                                        <p className="text-muted small mb-0">SIZE: L</p>
-                                                        <p className="text-muted small">Brand: Roadstar</p>
-                                                    </figcaption>
-                                                </figure>
-                                            </td>
-                                            <td> 
-                                                <select className="form-control form-control-sm">
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                </select> 
-                                            </td>
-                                            <td>
-                                                <div className="price-wrap">
-                                                    <span className="price fw-bold">$10.00</span>  
-                                                </div>
-                                            </td>
-                                            <td align="right">  
-                                                <a href="" className="btn btn-danger btn-sm" data-abc="true"> Remove</a> 
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <figure className="itemside d-flex align-items-start">
-                                                    <div className="aside p-2 border rounded me-3">
-                                                        <img src={CiscoWatch} className="img-sm" />
+                                                </td>
+                                                <td>
+                                                    <div className="price-wrap">
+                                                        <span className="price fw-bold">{"$"+item.price}</span>  
                                                     </div>
-                                                    <figcaption className=""> 
-                                                        <a href="#" className="title text-decoration-none text-dark" data-abc="true">Casio G-Shock Men Black Analogue and Digital watch G468 GA-1000-4ADR</a>
-                                                        <p className="text-muted small mb-0">SIZE: L</p>
-                                                        <p className="text-muted small">Brand: CISCO</p>
-                                                    </figcaption>
-                                                </figure>
-                                            </td>
-                                            <td> 
-                                                <select className="form-control form-control-sm">
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                </select> 
-                                            </td>
-                                            <td>
-                                                <div className="price-wrap">
-                                                    <span className="price fw-bold">$155.00</span>  
-                                                </div>
-                                            </td>
-                                            <td align="right">  
-                                                <a href="" className="btn btn-danger btn-sm" data-abc="true"> Remove</a> 
-                                            </td>
-                                        </tr>
+                                                </td>
+                                                <td align="right">  
+                                                    <a href="" className="btn btn-danger btn-sm" data-abc="true">Remove</a> 
+                                                </td>
+                                            </tr>
+                                        ))
+                                        :
+                                            <tr><th scope="row" colSpan="4" className="p-3 text-center">No Data Available...</th></tr>
+                                        }
                                     </tbody>
                                 </table>
                             </div>
