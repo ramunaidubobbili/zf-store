@@ -7,7 +7,7 @@ class Cart extends React.Component {
         super(props);
         this.state = {
             data: [],
-            totalPrice: 259,
+            totalPrice: 0,
             discountPrice: 10
         }
     }
@@ -19,7 +19,8 @@ class Cart extends React.Component {
         ServiceRequest.getData()
         .then(response => {
         this.setState({
-            data: response.data
+            data: response.data,
+            totalPrice: this.totalPrice(response.data)
         });
         console.log(response.data);
         })
@@ -27,6 +28,65 @@ class Cart extends React.Component {
         console.log(e);
         });
     }
+
+    totalPrice = (data) => {
+        debugger;
+        const totalPrice = data.reduce((a, item) =>  a + parseInt(item.price*item.quantity, 10), 0);
+        console.log("Total Price:"+totalPrice);
+        return totalPrice;
+    }
+
+    increaseQunatity = (id) => {
+        let data  = {
+            quantity: this.state.data[id-1].quantity+1
+        }
+        ServiceRequest.update(id, data)
+        .then(response => {
+            this.setState(prevState => ({
+            item: {
+                ...prevState.item
+            }
+            }));
+            //console.log("Updated Data: "+response.data);
+            this.fetchData()
+        })
+        .catch(e => {
+            console.log(e);
+        });
+    }
+    decreaseQunatity = (id) => {
+        if(this.state.data[id-1].quantity > 1){
+            let data  = {
+                quantity: this.state.data[id-1].quantity-1
+            }
+        
+            ServiceRequest.update(id, data)
+            .then(response => {
+                this.setState(prevState => ({
+                item: {
+                    ...prevState.item
+                }
+                }));
+                //console.log("Updated Data: "+response.data);
+                this.fetchData()
+            })
+            .catch(e => {
+                console.log(e);
+            });
+        }
+    }
+
+    deleteItem = (id) => {
+        ServiceRequest.delete(id)
+        .then(response => {
+            console.log(response.data);
+            this.fetchData();
+        })
+        .catch(e => {
+            console.log(e);
+        })
+    }
+
     render() {
         const { data } = this.state;
         return (
