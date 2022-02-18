@@ -7,7 +7,7 @@ class Cart extends React.Component {
         super(props);
         this.state = {
             data: [],
-            totalPrice: 289,
+            totalPrice: 0,
             discountPrice: 10
         }
     }
@@ -19,14 +19,72 @@ class Cart extends React.Component {
         ServiceRequest.getData()
         .then(response => {
         this.setState({
-            data: response.data
-            
+            data: response.data,
+            totalPrice: this.totalPrice(response.data)
         });
         console.log(response.data);
         })
         .catch((e) => {
         console.log(e);
         });
+    }
+
+    totalPrice = (data) => {
+        debugger;
+        const totalPrice = data.reduce((a, item) =>  a + parseInt(item.price*item.quantity, 10), 0);
+        console.log("Total Price:"+totalPrice);
+        return totalPrice;
+    }
+
+    increaseQunatity = (id) => {
+        let data  = {
+            quantity: this.state.data[id-1].quantity+1
+        }
+        ServiceRequest.update(id, data)
+        .then(response => {
+            this.setState(prevState => ({
+            item: {
+                ...prevState.item
+            }
+            }));
+            //console.log("Updated Data: "+response.data);
+            this.fetchData()
+        })
+        .catch(e => {
+            console.log(e);
+        });
+    }
+    decreaseQunatity = (id) => {
+        if(this.state.data[id-1].quantity > 1){
+            let data  = {
+                quantity: this.state.data[id-1].quantity-1
+            }
+        
+            ServiceRequest.update(id, data)
+            .then(response => {
+                this.setState(prevState => ({
+                item: {
+                    ...prevState.item
+                }
+                }));
+                //console.log("Updated Data: "+response.data);
+                this.fetchData()
+            })
+            .catch(e => {
+                console.log(e);
+            });
+        }
+    }
+
+    deleteItem = (id) => {
+        ServiceRequest.delete(id)
+        .then(response => {
+            console.log(response.data);
+            this.fetchData();
+        })
+        .catch(e => {
+            console.log(e);
+        })
     }
 
     render() {
@@ -77,9 +135,9 @@ class Cart extends React.Component {
                                                 </td>
                                                 <td>
                                                     <div className="btn-group" role="group" aria-label="Basic mixed styles example">
-                                                        <button type="button" className="btn btn-sm btn-secondary">-</button>
+                                                        <button type="button" className="btn btn-sm btn-secondary" onClick={() => this.decreaseQunatity(item.id)}>-</button>
                                                         <button disabled type="button" className="btn btn-sm btn-sm btn-outline-secondary">{item.quantity}</button>
-                                                        <button type="button" className="btn btn-sm btn-secondary">+</button>
+                                                        <button type="button" className="btn btn-sm btn-secondary" onClick={() => this.increaseQunatity(item.id)}>+</button>
                                                     </div>
                                                 </td>
                                                 <td>
@@ -88,7 +146,7 @@ class Cart extends React.Component {
                                                     </div>
                                                 </td>
                                                 <td align="right">  
-                                                    <button type="button" className="btn btn-danger btn-sm" data-abc="true" >Remove</button> 
+                                                    <button type="button" className="btn btn-danger btn-sm" data-abc="true" onClick={() => {this.deleteItem(item.id)}}>Remove</button> 
                                                 </td>
                                             </tr>
                                         ))
