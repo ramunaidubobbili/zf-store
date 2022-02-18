@@ -1,7 +1,4 @@
 import React from "react";
-import CiscoWatch from "../../images/watch.webp";
-import Roadstar from "../../images/roadstar.webp";
-import Nikeshoe from "../../images/shoe.webp";
 
 import ServiceRequest from "../api/service";
 
@@ -10,9 +7,8 @@ class Cart extends React.Component {
         super(props);
         this.state = {
             data: [],
-            id: null,
-            isLoading: false,
-            quantity: 0
+            totalPrice: 289,
+            discountPrice: 10
         }
     }
     componentDidMount() {
@@ -20,66 +16,17 @@ class Cart extends React.Component {
     }
 
     fetchData = () => {
+        ServiceRequest.getData()
+        .then(response => {
         this.setState({
-          isLoading: true
+            data: response.data
+            
+        });
+        console.log(response.data);
         })
-        setTimeout(() => {
-          ServiceRequest.getData()
-          .then(response => {
-            this.setState({
-              data: response.data,
-              isLoading: false
-            });
-            console.log(response.data);
-          })
-          .catch((e) => {
-            this.setState({
-              isLoading: false
-            })
-            console.log(e);
-          });
-        }, 1000); 
-    }
-
-    increaseQunatity = (id) => {
-        let data  = {
-            quantity: this.state.data[id-1].quantity+1
-        }
-        setTimeout(() => {
-            ServiceRequest.update(id, data)
-            .then(response => {
-                this.setState(prevState => ({
-                item: {
-                    ...prevState.item
-                }
-                }));
-                console.log("Updated Data: "+response.data);
-                this.fetchData()
-            })
-            .catch(e => {
-                console.log(e);
-            });
-        }, 1000);  
-    }
-    decreaseQunatity = (id) => {
-        let data  = {
-            quantity: this.state.data[id-1].quantity-1
-        }
-        setTimeout(() => {
-            ServiceRequest.update(id, data)
-            .then(response => {
-                this.setState(prevState => ({
-                item: {
-                    ...prevState.item
-                }
-                }));
-                console.log("Updated Data: "+response.data);
-                this.fetchData()
-            })
-            .catch(e => {
-                console.log(e);
-            });
-        }, 1000);  
+        .catch((e) => {
+        console.log(e);
+        });
     }
 
     render() {
@@ -113,27 +60,16 @@ class Cart extends React.Component {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {this.state.isLoading ?
-                                        <tr>
-                                            <td colSpan="4" className="text-center">
-                                            <div className="d-flex justify-content-center">
-                                                <div className="spinner-border" role="status">
-                                                    <span className="visually-hidden">Loading...</span>
-                                                </div>
-                                            </div>
-                                            </td>
-                                        </tr>
-                                        :
-                                        data.length !== 0 ?
+                                        {data.length !== 0 ?
                                         data.map((item, index) => (
                                             <tr key={index}>
                                                 <td>
                                                     <figure className="itemside d-flex align-items-start">
                                                         <div className="aside p-2 border rounded me-3">
-                                                            <img src={item.image} className="img-sm" />
+                                                            <img src={item.image} className="img-sm" alt={item.name} />
                                                         </div>
                                                         <figcaption className=""> 
-                                                            <a href="#" className="title text-decoration-none text-dark" data-abc="true">{item.name}</a>
+                                                            <p className="title text-decoration-none text-dark" data-abc="true">{item.name}</p>
                                                             <p className="text-muted small mb-0">SIZE: {item.size}</p>
                                                             <p className="text-muted small">Brand: {item.brand}</p>
                                                         </figcaption>
@@ -141,18 +77,18 @@ class Cart extends React.Component {
                                                 </td>
                                                 <td>
                                                     <div className="btn-group" role="group" aria-label="Basic mixed styles example">
-                                                        <button type="button" className="btn btn-sm btn-secondary" onClick={() => this.decreaseQunatity(item.id)}>-</button>
+                                                        <button type="button" className="btn btn-sm btn-secondary">-</button>
                                                         <button disabled type="button" className="btn btn-sm btn-sm btn-outline-secondary">{item.quantity}</button>
-                                                        <button type="button" className="btn btn-sm btn-secondary" onClick={() => this.increaseQunatity(item.id)}>+</button>
+                                                        <button type="button" className="btn btn-sm btn-secondary">+</button>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div className="price-wrap">
-                                                        <span className="price fw-bold">{"$"+item.price}</span>  
+                                                        <span className="price fw-bold">{"$"+item.price * item.quantity}</span>  
                                                     </div>
                                                 </td>
                                                 <td align="right">  
-                                                    <a href="" className="btn btn-danger btn-sm" data-abc="true">Remove</a> 
+                                                    <button type="button" className="btn btn-danger btn-sm" data-abc="true" >Remove</button> 
                                                 </td>
                                             </tr>
                                         ))
@@ -180,15 +116,15 @@ class Cart extends React.Component {
                                     <tbody>
                                         <tr>
                                             <th>Total price:</th>
-                                            <td align="right">$185.00</td>
+                                            <td align="right">{"$"+this.state.totalPrice}</td>
                                         </tr>
                                         <tr>
                                             <th>Discount:</th>
-                                            <td align="right">- $10.00</td>
+                                            <td align="right">- {"$"+this.state.discountPrice}</td>
                                         </tr>
                                         <tr>
                                         <th>Total:</th>
-                                        <td align="right"><strong>$175.00</strong></td>
+                                        <td align="right"><strong>{"$"+(this.state.totalPrice-this.state.discountPrice)}</strong></td>
                                         </tr>
                                     </tbody>
                                 </table>
