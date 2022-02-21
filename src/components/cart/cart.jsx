@@ -36,11 +36,12 @@ class Cart extends React.Component {
         return totalPrice;
     }
 
-    increaseQunatity = (id) => {
+    increaseQunatity = (item) => {
+        debugger;
         let data  = {
-            quantity: this.state.data[id-1].quantity+1
+            quantity: item.quantity+1
         }
-        ServiceRequest.update(id, data)
+        ServiceRequest.update(item.id, data)
         .then(response => {
             this.setState(prevState => ({
             item: {
@@ -54,13 +55,13 @@ class Cart extends React.Component {
             console.log(e);
         });
     }
-    decreaseQunatity = (id) => {
-        if(this.state.data[id-1].quantity > 1){
+    decreaseQunatity = (item) => {
+        if(item.quantity > 1){
             let data  = {
-                quantity: this.state.data[id-1].quantity-1
+                quantity: item.quantity-1
             }
         
-            ServiceRequest.update(id, data)
+            ServiceRequest.update(item.id, data)
             .then(response => {
                 this.setState(prevState => ({
                 item: {
@@ -135,9 +136,9 @@ class Cart extends React.Component {
                                                 </td>
                                                 <td>
                                                     <div className="btn-group" role="group" aria-label="Basic mixed styles example">
-                                                        <button type="button" className="btn btn-sm btn-secondary" onClick={() => this.decreaseQunatity(item.id)}>-</button>
+                                                        <button type="button" className="btn btn-sm btn-secondary" onClick={() => this.decreaseQunatity(item)}>-</button>
                                                         <button disabled type="button" className="btn btn-sm btn-sm btn-outline-secondary">{item.quantity}</button>
-                                                        <button type="button" className="btn btn-sm btn-secondary" onClick={() => this.increaseQunatity(item.id)}>+</button>
+                                                        <button type="button" className="btn btn-sm btn-secondary" onClick={() => this.increaseQunatity(item)}>+</button>
                                                     </div>
                                                 </td>
                                                 <td>
