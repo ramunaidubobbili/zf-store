@@ -8,10 +8,6 @@ class ServiceRequest {
     return api.get(`/cartlist/${id}`);
   }
 
-  create(data) {
-    return api.post("/cartlist", data);
-  }
-
   update(id, data) {
     return api.put(`/cartlist/${id}`, data);
   }
@@ -22,6 +18,14 @@ class ServiceRequest {
 
   findByName(name) {
     return api.get(`/cartlist?name=${name}`);
+  }
+
+  create(data) {
+    return api.post("/registered_users", data);
+  }
+
+  getUsersData(){
+    return api.get("/registered_users")
   }
 }
 

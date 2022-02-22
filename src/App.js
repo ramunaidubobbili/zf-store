@@ -1,42 +1,33 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect} from "react-router-dom";
 
-import Header from './components/header';
 import Login from "./components/login/login";
 import Register from "./components/login/register";
-import Home from "./components/home";
-import Profile from './components/profile/profile';
-import Cart from "./components/cart/cart";
-import Wishlist from "./components/wishlist/wishlist";
+import Dashboard from "./components/dashboard";
+import ProtectedRoute from "./components/login/protectedRoute";
 import './custom.css';
 
 function App() {
   return (
     <div className="App">
       <Router>
-        <Header/>
-        <main>
-          <Switch>
-            <Route exact path="/">
-              <Home/>
-            </Route>
-            <Route path="/register">
-              <Register/>
-            </Route>
-            <Route path="/login">
-              <Login/>
-            </Route>
-            <Route path="/profile">
-              <Profile/>
-            </Route>
-            <Route path="/wishlist">
-              <Wishlist/>
-            </Route>
-            <Route path="/cart">
-              <Cart/>
-            </Route>
-          </Switch>
-        </main> 
+        <Switch>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/register">
+            <Register/>
+          </Route>
+          <ProtectedRoute path="/dashboard">
+            <Dashboard />
+          </ProtectedRoute>
+          <Route exact path="/">
+            <Redirect exact from="/" to="dashboard" />
+          </Route>
+          <Route path="*">
+            <Redirect from="/" to="dashboard" />
+          </Route>
+        </Switch>
       </Router>
     </div>
   );

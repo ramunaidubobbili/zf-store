@@ -1,5 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import ServiceRequest from "../api/service";
+import Header from "./header";
 
 class Register extends React.Component{
     constructor(props){
@@ -13,7 +15,11 @@ class Register extends React.Component{
             emailError: '',
             fullnameError: '',
             phoneError: '',
-            passwordError: ''
+            passwordError: '',
+            alert: {
+                message: '',
+                type: ''
+            }
         }
     }
 
@@ -28,12 +34,41 @@ class Register extends React.Component{
         let isValidPhone = this.phoneValidation(this.state.phone);
         let isValidPassword = this.passwordValidation(this.state.password, this.state.c_password);
         if( !isValidEmail && !isValidFullname && !isValidPhone && !isValidPassword){
-            
+            var data = {
+                fullname: this.state.fullname,
+                email: this.state.email,
+                phone: this.state.phone,
+                password: this.state.password
+            };
+            ServiceRequest.create(data)
+            .then(response => {
+                this.setState({
+                    alert: {
+                        message: "You're registered successfully",
+                        type: 'success'
+                    }
+                });
+                //this.props.fetchData()
+                console.log(response.data);
+            })
+            .catch(e => {
+                console.log(e);
+                this.setState({
+                    alert: {
+                        message: "You're not registered, please try again",
+                        type: 'error'
+                    }
+                })
+            });
+            this.setState({
+                fullname: "",
+                email: "",
+                phone: "",
+                password: "",
+                c_password: ""
+            });
         }
-        else {
-            e.preventDefault()
-        }
-        
+        e.preventDefault()
     }
 
     fullnameValidation = (name) => {
@@ -99,52 +134,71 @@ class Register extends React.Component{
         return false;
     }
 
+    hideAlert = () => {
+        setTimeout(() => {
+            this.setState({
+                alert: {
+                    message: '',
+                    type: ''
+                }
+            })
+        },1500)
+    }
 
     render() {
-        const {emailError, fullnameError, phoneError, passwordError} = this.state;
+        const {emailError, fullnameError, phoneError, passwordError, alert, fullname, email, phone, password, c_password} = this.state;
         return (
-            <div className="container">
-                <div className="row vh-100 justify-content-center align-items-center">
-                    <div className="col-sm-6 col-md-5 text-center">
-                        <div className="shadow-sm p-4 mb-3 bg-body border card card-body">
-                            <h5 className="mb-4 card-title">Create Account</h5>
-                            <form noValidate="" autoComplete="off" className="form-inline">
-                                <div className="mb-3 mr-sm-2 form-group">
-                                    <label htmlFor="fullname" className="visually-hidden">Full Name</label>
-                                    <input name="fullname" id="fullname" placeholder="Full Name"  onChange={this.handleChange} className={"py-2 px-3 form-control " + (fullnameError !== "" ? "is-invalid" : "")} />
-                                    {fullnameError !== "" && <div className='invalid-feedback text-start'>{fullnameError}</div>}
-                                </div>
-                                <div className="mb-3 mr-sm-2 form-group">
-                                    <label htmlFor="email" className="visually-hidden">Email</label>
-                                    <input name="email" id="email" placeholder="Email"  onChange={this.handleChange} className={"py-2 px-3 form-control " + (emailError !== "" ? "is-invalid" : "")} />
-                                    {emailError !== "" && <div className='invalid-feedback text-start'>{emailError}</div>}
-                                </div>
-                                <div className="mb-3 mr-sm-2 form-group">
-                                    <label htmlFor="phone" className="visually-hidden">Phone Number</label>
-                                    <input type="tel" name="phone" id="phone" placeholder="Phone Number"  onChange={this.handleChange} className={"py-2 px-3 form-control " + (phoneError !== "" ? "is-invalid" : "")} />
-                                    {phoneError !== "" && <div className='invalid-feedback text-start'>{phoneError}</div>}
-                                </div>
-                                <div className="mb-3 mr-sm-2 form-group">
-                                    <label htmlFor="password" className="visually-hidden">Password</label>
-                                    <input type="password" name="password" id="password" placeholder="Password" onChange={this.handleChange} className={"py-2 px-3 form-control " + (passwordError !== "" ? "is-invalid" : "")}/>
-                                    {passwordError !== "" && <div className='invalid-feedback text-start'>{passwordError}</div>}
-                                </div>
-                                <div className="mb-3 mr-sm-2 form-group">
-                                    <label htmlFor="c_password" className="visually-hidden">Confirm Password</label>
-                                    <input type="password" name="c_password" id="c_password" placeholder="Confirm Password" onChange={this.handleChange} className={"py-2 px-3 form-control " + (passwordError !== "" ? "is-invalid" : "")}/>
-                                    {passwordError !== "" && <div className='invalid-feedback text-start'>{passwordError}</div>}
-                                </div>
-                                <div className="d-grid gap-2">
-                                    <button type="submit" onClick={this.register} className="py-2 px-3 btn btn-primary" >Register</button>
-                                </div>
-                            </form>
-                        </div>
-                        <div>
-                            Already registered? <Link to="/login" className='link'>Login</Link>
+            <>
+                <Header/>
+                <div className="container">
+                    <div className="row vh-100 justify-content-center align-items-center position-relative">
+                        {alert.type !== "" && (
+                            <div className={"fs-5 alert top-90 text-center col-md-5 position-absolute fade show " + (alert.type === "success" ? "alert-success" : "alert-danger") } role="alert">
+                                {alert.message}
+                                <span data-bs-dismiss="alert" aria-label="Close" onClick={this.hideAlert()}></span>
+                            </div>
+                        )}
+                        <div className="col-sm-6 col-md-5 text-center">
+                            <div className="shadow-sm p-4 mb-3 bg-body border card card-body">
+                                <h5 className="mb-4 card-title">Create Account</h5>
+                                <form noValidate="" autoComplete="off" className="form-inline">
+                                    <div className="mb-3 mr-sm-2 form-group">
+                                        <label htmlFor="fullname" className="visually-hidden">Full Name</label>
+                                        <input value={fullname} name="fullname" id="fullname" placeholder="Full Name"  onChange={this.handleChange} className={"py-2 px-3 form-control " + (fullnameError !== "" ? "is-invalid" : "")} />
+                                        {fullnameError !== "" && <div className='invalid-feedback text-start'>{fullnameError}</div>}
+                                    </div>
+                                    <div className="mb-3 mr-sm-2 form-group">
+                                        <label htmlFor="email" className="visually-hidden">Email</label>
+                                        <input value={email} name="email" id="email" placeholder="Email"  onChange={this.handleChange} className={"py-2 px-3 form-control " + (emailError !== "" ? "is-invalid" : "")} />
+                                        {emailError !== "" && <div className='invalid-feedback text-start'>{emailError}</div>}
+                                    </div>
+                                    <div className="mb-3 mr-sm-2 form-group">
+                                        <label htmlFor="phone" className="visually-hidden">Phone Number</label>
+                                        <input value={phone} type="tel" name="phone" id="phone" placeholder="Phone Number"  onChange={this.handleChange} className={"py-2 px-3 form-control " + (phoneError !== "" ? "is-invalid" : "")} />
+                                        {phoneError !== "" && <div className='invalid-feedback text-start'>{phoneError}</div>}
+                                    </div>
+                                    <div className="mb-3 mr-sm-2 form-group">
+                                        <label htmlFor="password" className="visually-hidden">Password</label>
+                                        <input value={password} type="password" name="password" id="password" placeholder="Password" onChange={this.handleChange} className={"py-2 px-3 form-control " + (passwordError !== "" ? "is-invalid" : "")}/>
+                                        {passwordError !== "" && <div className='invalid-feedback text-start'>{passwordError}</div>}
+                                    </div>
+                                    <div className="mb-3 mr-sm-2 form-group">
+                                        <label htmlFor="c_password" className="visually-hidden">Confirm Password</label>
+                                        <input value={c_password} type="password" name="c_password" id="c_password" placeholder="Confirm Password" onChange={this.handleChange} className={"py-2 px-3 form-control " + (passwordError !== "" ? "is-invalid" : "")}/>
+                                        {passwordError !== "" && <div className='invalid-feedback text-start'>{passwordError}</div>}
+                                    </div>
+                                    <div className="d-grid gap-2">
+                                        <button type="submit" onClick={this.register} className="py-2 px-3 btn btn-primary" >Register</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div>
+                                Already registered? <Link to="/login" className='link'>Login</Link>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </>
             )
     }
 }

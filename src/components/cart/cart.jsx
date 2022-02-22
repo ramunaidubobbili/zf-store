@@ -8,7 +8,7 @@ class Cart extends React.Component {
         this.state = {
             data: [],
             totalPrice: 0,
-            discountPrice: 10
+            discountPrice: 10,
         }
     }
     componentDidMount() {
@@ -89,7 +89,7 @@ class Cart extends React.Component {
     render() {
         const { data } = this.state;
         return (
-            <div className="container pt-4">
+            <div>
                 <div className="row">
                     <div className="col-sm-12 col-md-8">
                         <div className="addressStrip border rounded p-3 d-flex justify-content-between">

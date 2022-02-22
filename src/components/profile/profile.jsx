@@ -11,7 +11,7 @@ class Profile extends React.Component{
 
     render(){
         return(
-            <div className="container">
+            <div>
                 <div className="account-account pt-5 pb-3 border-bottom">
                     <div className="account-heading fw-bold"> Account</div>
                     <div><small>John</small></div>

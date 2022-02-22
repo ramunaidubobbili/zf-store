@@ -27,25 +27,25 @@ class Header extends React.Component{
                                     </form>
                                     <ul className="nav col-12 col-lg-auto my-2 justify-content-center align-items-center my-md-0 text-small">
                                         <li>
-                                            <Link to="/profile" className="nav-link text-secondary text-center px-2 py-0">
+                                            <Link to={`${this.props.match.path}/profile`} className="nav-link text-secondary text-center px-2 py-0">
                                                 <i className="fa fa-user d-block mx-auto"></i>
                                                 <small>Profile</small>
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link to="/wishlist" className="nav-link text-secondary text-center px-2 py-0">
+                                            <Link to={`${this.props.match.path}/wishlist`}className="nav-link text-secondary text-center px-2 py-0">
                                                 <i className="fa fa-heart d-block mx-auto"></i>
                                                 <small>Wishlist</small>
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link to="/cart" className="nav-link text-secondary text-center px-2 py-0">
+                                            <Link to={`${this.props.match.path}/cart`} className="nav-link text-secondary text-center px-2 py-0">
                                                 <i className="fa fa-shopping-bag d-block mx-auto"></i>
                                                 <small>Bag</small>
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link to="/login" className="btn btn-primary ms-2">Login</Link>
+                                            <button className="btn btn-primary ms-2" onClick={this.props.logout}>Logout</button>
                                         </li>
                                     </ul>
                                 </div>
