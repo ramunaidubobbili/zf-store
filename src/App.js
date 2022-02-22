@@ -2,7 +2,8 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import Header from './components/header';
-import Login from "./components/login/login"
+import Login from "./components/login/login";
+import Register from "./components/login/register";
 import Home from "./components/home";
 import Profile from './components/profile/profile';
 import Cart from "./components/cart/cart";
@@ -18,6 +19,9 @@ function App() {
           <Switch>
             <Route exact path="/">
               <Home/>
+            </Route>
+            <Route path="/register">
+              <Register/>
             </Route>
             <Route path="/login">
               <Login/>
