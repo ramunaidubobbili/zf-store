@@ -37,7 +37,51 @@ class Login extends React.Component{
         this.setState({ [name]: value })
     }
 
-    
+    getUserData = (data, email, password) => {
+        let existData = {};
+        for(let i = 0; i <= data.length; i++){
+            if(data[i].email === email && data[i].password === password){
+                existData = data[i]
+            }
+            return existData;
+        } 
+    }
+
+    login = (e) => {
+        if(this.state.email !== "" || this.state.password !== ""){
+            let emailError = "";
+            let passwordError = "";
+            const getUserData = this.getUserData(this.state.usersData, this.state.email, this.state.password);
+            console.log(getUserData)
+            if(getUserData.email === this.state.email && getUserData.password === this.state.password){
+                localStorage.setItem("userDetails", JSON.stringify(getUserData));
+                localStorage.setItem("token", "T");
+                const getSessionData = localStorage.getItem("userDetails");
+                this.setState({
+                    userDetails: getUserData,
+                    isLoggedIn: !this.state.isLoggedIn
+                });
+            } else{
+                if(getUserData.email !== this.state.email){
+                    emailError = "This email is not registed"
+                }
+                if(getUserData.password !== this.state.password){
+                    passwordError= "Password is not correct"
+                }
+            }
+            this.setState({
+                emailError: emailError,
+                passwordError: passwordError
+            })
+
+        }else{
+            this.setState({
+                emailError: "Email is not valid",
+                passwordError: "Password must be minimum 3 digits"
+            })
+        }
+        e.preventDefault()
+    }
 
     render() {
         const {emailError, passwordError} = this.state;
@@ -64,7 +108,7 @@ class Login extends React.Component{
                                         <input type="password" name="password" id="password" placeholder="Password" onChange={this.handleChange} className={"py-2 px-3 form-control " + (passwordError !== "" ? "is-invalid" : "")}/>
                                         {passwordError !== "" && <div className='invalid-feedback text-start'>{passwordError}</div>}</div>
                                     <div className="d-grid gap-2">
-                                        <button type="submit"  className="py-2 px-3 btn btn-primary" >Login</button>
+                                        <button type="submit" onClick={this.login} className="py-2 px-3 btn btn-primary" >Login</button>
                                     </div>
                                 </form>
                             </div>
