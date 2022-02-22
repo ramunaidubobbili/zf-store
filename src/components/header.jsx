@@ -25,7 +25,7 @@ class Header extends React.Component{
                                     <form className="d-flex w-25 me-4">
                                         <input className="form-control search-control me-2" type="search" placeholder="Search for products, brands and more" aria-label="Search"/>
                                     </form>
-                                    <ul className="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
+                                    <ul className="nav col-12 col-lg-auto my-2 justify-content-center align-items-center my-md-0 text-small">
                                         <li>
                                             <Link to="/profile" className="nav-link text-secondary text-center px-2 py-0">
                                                 <i className="fa fa-user d-block mx-auto"></i>
@@ -43,6 +43,9 @@ class Header extends React.Component{
                                                 <i className="fa fa-shopping-bag d-block mx-auto"></i>
                                                 <small>Bag</small>
                                             </Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/login" className="btn btn-primary ms-2">Login</Link>
                                         </li>
                                     </ul>
                                 </div>

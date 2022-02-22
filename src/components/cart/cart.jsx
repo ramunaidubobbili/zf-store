@@ -30,14 +30,12 @@ class Cart extends React.Component {
     }
 
     totalPrice = (data) => {
-        debugger;
         const totalPrice = data.reduce((a, item) =>  a + parseInt(item.price*item.quantity, 10), 0);
         console.log("Total Price:"+totalPrice);
         return totalPrice;
     }
 
     increaseQunatity = (item) => {
-        debugger;
         let data  = {
             quantity: item.quantity+1
         }
