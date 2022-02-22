@@ -19,7 +19,7 @@ class Login extends React.Component{
 
     login = (e) => {
         let isValidEmail = this.emailValidation(this.state.email);
-        let isValidPassword = this.passwordValidation(this.state.password, this.state.c_password);
+        let isValidPassword = this.passwordValidation(this.state.password);
         if( !isValidEmail && !isValidPassword){
             
         }
@@ -70,12 +70,12 @@ class Login extends React.Component{
                             <form noValidate="" autoComplete="off" className="form-inline">
                                 <div className="mb-3 mr-sm-2 form-group">
                                     <label htmlFor="user_id" className="visually-hidden">Username</label>
-                                    <input name="user_id" id="user_id" placeholder="User Name"  onChange={this.handleChange} className={"py-2 px-3 form-control " + (emailError !== "" ? "is-invalid" : "")} />
+                                    <input name="email" id="email" placeholder="Email"  onChange={this.handleChange} className={"py-2 px-3 form-control " + (emailError !== "" ? "is-invalid" : "")} />
                                     {emailError !== "" && <div className='invalid-feedback text-start'>{emailError}</div>}
                                 </div>
                                 <div className="mb-3 mr-sm-2 form-group">
                                     <label htmlFor="user_password" className="visually-hidden">Password</label>
-                                    <input type="password" name="user_password" id="user_password" placeholder="Password" onChange={this.handleChange} className={"py-2 px-3 form-control " + (passwordError !== "" ? "is-invalid" : "")}/>
+                                    <input type="password" name="password" id="password" placeholder="Password" onChange={this.handleChange} className={"py-2 px-3 form-control " + (passwordError !== "" ? "is-invalid" : "")}/>
                                     {passwordError !== "" && <div className='invalid-feedback text-start'>{passwordError}</div>}</div>
                                 <div className="d-grid gap-2">
                                     <button type="submit" onClick={this.login} className="py-2 px-3 btn btn-primary" >Login</button>
