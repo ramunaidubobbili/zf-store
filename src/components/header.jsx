@@ -21,26 +21,10 @@ class Header extends React.Component{
                                 </button>
                                 <Link to="/" className="navbar-brand">ZF Store</Link>
                                 <div className="collapse navbar-collapse justify-content-end" id="navbarTogglerDemo03">
-                                    <form className="d-flex w-25 me-4">
-                                        <input className="form-control search-control me-2" type="search" placeholder="Search for products, brands and more" aria-label="Search"/>
-                                    </form>
                                     <ul className="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
                                         <li>
-                                            <Link to="/" className="nav-link text-secondary text-center px-2 py-0">
-                                                <i className="fa fa-user d-block mx-auto"></i>
-                                                <small>Profile</small>
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <Link to="/" className="nav-link text-secondary text-center px-2 py-0">
-                                                <i className="fa fa-heart d-block mx-auto"></i>
-                                                <small>Wishlist</small>
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <Link to="/" className="nav-link text-secondary text-center px-2 py-0">
-                                                <i className="fa fa-shopping-bag d-block mx-auto"></i>
-                                                <small>Bag</small>
+                                            <Link to="/" className="btn btn-primary">
+                                                Login
                                             </Link>
                                         </li>
                                     </ul>

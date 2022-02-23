@@ -17,13 +17,13 @@ class Users extends React.Component{
     fetchData = () => {
         ServiceRequest.getData()
         .then(response => {
-        this.setState({
-            data: response.data
-        });
-        console.log(response.data);
+            this.setState({
+                data: response.data
+            });
+            console.log(response.data);
         })
         .catch((e) => {
-        console.log(e);
+            console.log(e);
         });
     }
 
@@ -66,9 +66,9 @@ class Users extends React.Component{
                             {data.length !== 0 ?
                             data.map((item, index) => (
                             <tr key={index}>
-                                <td scope="row">{item.userid}</td>
+                                <td>{item.userid}</td>
                                 <td>{item.name}</td>
-                                <td><span className={"badge " + (item.status == "Active" ? "bg-success" : "bg-warning text-dark")}>{item.status}</span></td>
+                                <td><span className={"badge " + (item.status === "Active" ? "bg-success" : "bg-warning text-dark")}>{item.status}</span></td>
                             </tr>
                             ))
                             :

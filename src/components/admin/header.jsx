@@ -13,7 +13,7 @@ class AdminHeader extends React.Component{
                             </button>
                             <Link to={this.props.match.path} className="navbar-brand">ZF Admin</Link>
                             <div className="collapse navbar-collapse justify-content-end" id="navbarTogglerDemo03">
-                                <button onClick={this.props.signOut} className=" btn btn-link nav-link text-secondary text-center px-2 py-0">
+                                <button onClick={this.props.signOut} className=" btn btn-primary">
                                     Logout
                                 </button>
                             </div>
