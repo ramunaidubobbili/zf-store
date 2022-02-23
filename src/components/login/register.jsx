@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import ServiceRequest from "../api/service";
 import Header from "./header";
 
@@ -19,9 +19,29 @@ class Register extends React.Component{
             alert: {
                 message: '',
                 type: ''
-            }
+            },
+            usersData: [],
+            isRegisted: false
         }
     }
+
+    componentDidMount(){
+        this.getRegisteredUsers();
+    }
+
+    getRegisteredUsers = () => {
+        ServiceRequest.getUsersData()
+        .then(response => {
+            this.setState({
+                usersData: response.data
+            });
+            console.log(response.data);
+        })
+        .catch((e) => {
+            console.log(e);
+        });
+    }
+
 
     handleChange = (e) => {
         const { name, value } = e.target
@@ -43,6 +63,7 @@ class Register extends React.Component{
             ServiceRequest.create(data)
             .then(response => {
                 this.setState({
+                    isRegisted: true,
                     alert: {
                         message: "You're registered successfully",
                         type: 'success'
@@ -54,6 +75,7 @@ class Register extends React.Component{
             .catch(e => {
                 console.log(e);
                 this.setState({
+                    isRegisted: false,
                     alert: {
                         message: "You're not registered, please try again",
                         type: 'error'
@@ -87,8 +109,16 @@ class Register extends React.Component{
 
     emailValidation = (email) => {
         let emailError = "";
+        const isAlreadyExist = this.state.usersData.map(item => item.email).includes(email);
+        
         const regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-        if(email === "" || !regex.test(email)){
+        if(isAlreadyExist){
+            this.setState({
+                emailError: "This email is already registered. Please try with another email."
+            });
+            return true;
+        }
+        else if(email === "" || !regex.test(email)){
             this.setState({
                 emailError: "Email is not valid"
             });
@@ -146,7 +176,10 @@ class Register extends React.Component{
     }
 
     render() {
-        const {emailError, fullnameError, phoneError, passwordError, alert, fullname, email, phone, password, c_password} = this.state;
+        const {emailError, fullnameError, phoneError, passwordError, alert, fullname, email, phone, password, c_password, isRegisted} = this.state;
+        if(isRegisted){
+            <Redirect to="/login"/>
+        }
         return (
             <>
                 <Header/>
