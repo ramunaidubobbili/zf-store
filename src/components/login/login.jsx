@@ -53,21 +53,21 @@ class Login extends React.Component{
             let passwordError = "";
             const getUserData = this.getUserData(this.state.usersData, this.state.email, this.state.password);
             console.log(getUserData)
-            if(getUserData.email === this.state.email && getUserData.password === this.state.password){
-                localStorage.setItem("userDetails", JSON.stringify(getUserData));
-                localStorage.setItem("token", "T");
-                const getSessionData = localStorage.getItem("userDetails");
-                this.setState({
-                    userDetails: getUserData,
-                    isLoggedIn: !this.state.isLoggedIn
-                });
-            } else{
+            if(getUserData.email !== this.state.email && getUserData.password !== this.state.password){
                 if(getUserData.email !== this.state.email){
                     emailError = "This email is not registed"
                 }
                 if(getUserData.password !== this.state.password){
                     passwordError= "Password is not correct"
                 }
+            } else{
+                localStorage.setItem("userDetails", JSON.stringify(getUserData));
+                localStorage.setItem("token", getUserData.id+getUserData.phone);
+                const getSessionData = localStorage.getItem("userDetails");
+                this.setState({
+                    userDetails: getUserData,
+                    isLoggedIn: !this.state.isLoggedIn
+                });
             }
             this.setState({
                 emailError: emailError,
