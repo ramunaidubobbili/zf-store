@@ -1,5 +1,7 @@
 import React from "react";
 import ServiceRequest from "../api/service";
+import UsersList from "./usersList";
+import {UsersDataList} from "../api/mockData";
 
 class Users extends React.Component{
     constructor(props) {
@@ -27,8 +29,6 @@ class Users extends React.Component{
         });
     }
 
-
-
     onChangeSearchName = (e) => {
         ServiceRequest.findByName(e.target.value)
         .then(response => {
@@ -53,30 +53,7 @@ class Users extends React.Component{
                     defaultValue={searchValue}
                     type="text" aria-label="Search"/>
                 </form>
-                <div className="table-responsive">
-                    <table className="table table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {data.length !== 0 ?
-                            data.map((item, index) => (
-                            <tr key={index}>
-                                <td>{item.userid}</td>
-                                <td>{item.name}</td>
-                                <td><span className={"badge " + (item.status === "Active" ? "bg-success" : "bg-warning text-dark")}>{item.status}</span></td>
-                            </tr>
-                            ))
-                            :
-                                <tr><th scope="row" colSpan="3" className="p-3 text-center">No Data Available...</th></tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
+                <UsersList usersDataList = {data.length !== 0 ? data : UsersDataList}/>
             </div>
         )
     }
