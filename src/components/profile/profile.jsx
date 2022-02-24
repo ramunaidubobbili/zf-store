@@ -5,8 +5,16 @@ class Profile extends React.Component{
     constructor(props){
         super(props)
         this.state = {
-
+            userDetails: {}
         }
+    }
+
+    componentDidMount(){
+        let getUserData = localStorage.getItem("userDetails");
+        //console.log(JSON.parse(getUserData))
+        this.setState({
+            userDetails: JSON.parse(getUserData)
+        })
     }
 
     render(){
@@ -16,7 +24,7 @@ class Profile extends React.Component{
                     <div className="account-heading fw-bold"> Account</div>
                     <div><small>John</small></div>
                 </div>
-                <ProfileDetails/>
+                <ProfileDetails userDetails={this.state.userDetails}/>
             </div>
         )
     }

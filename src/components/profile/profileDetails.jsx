@@ -10,6 +10,7 @@ class ProfileDetails extends React.Component{
     }
 
     render(){
+        const { userDetails } = this.props;
         return(
             <div className="row">
                 <div className="col-sm-12 col-md-2">
@@ -24,15 +25,15 @@ class ProfileDetails extends React.Component{
                                     <tbody>
                                         <tr>
                                             <td>Full Name</td>
-                                            <td>Jhon</td>
+                                            <td>{userDetails.fullname}</td>
                                         </tr>
                                         <tr>
                                             <td>Mobile Number</td>
-                                            <td>987654321</td>
+                                            <td>{userDetails.phone}</td>
                                         </tr>
                                         <tr>
                                             <td>Email ID</td>
-                                            <td>jhondoe@gmail.com</td>
+                                            <td>{userDetails.email}</td>
                                         </tr>
                                         <tr>
                                             <td>Address</td>

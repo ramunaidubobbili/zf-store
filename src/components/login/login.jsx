@@ -63,7 +63,6 @@ class Login extends React.Component{
             } else{
                 localStorage.setItem("userDetails", JSON.stringify(getUserData));
                 localStorage.setItem("token", getUserData.id+getUserData.phone);
-                const getSessionData = localStorage.getItem("userDetails");
                 this.setState({
                     userDetails: getUserData,
                     isLoggedIn: !this.state.isLoggedIn
