@@ -39,12 +39,12 @@ class Login extends React.Component{
 
     getUserData = (data, email, password) => {
         let existData = {};
-        for(let i = 0; i <= data.length; i++){
+        for(let i = 0; i < data.length; i++){
             if(data[i].email === email && data[i].password === password){
                 existData = data[i]
-            }
-            return existData;
+            }        
         } 
+        return existData;
     }
 
     login = (e) => {
