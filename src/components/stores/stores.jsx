@@ -29,7 +29,7 @@ class Stores extends React.Component{
     }
 
     onChangeSearchName = (e) => {
-        ServiceRequest.findByName(e.target.value)
+        ServiceRequest.findByRegistedName(e.target.value)
         .then(response => {
             this.setState({
             data: response.data
@@ -49,6 +49,7 @@ class Stores extends React.Component{
                     placeholder="Search by name" 
                     autoComplete="off"
                     defaultValue={searchValue}
+                    onChange={this.onChangeSearchName}
                     type="text" aria-label="Search"/>
                 </form>
                 <RegistedUsersList usersDataList = {data}/>

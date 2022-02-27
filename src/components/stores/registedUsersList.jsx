@@ -1,4 +1,5 @@
 import React from "react";
+import Pagination from "../admin/pagination";
 
 class RegistedUsersList extends React.Component {
   constructor(props) {
@@ -15,7 +16,7 @@ class RegistedUsersList extends React.Component {
   };
 
   render() {
-    const { usersDataList } = this.props;
+    const { usersDataList } = this.state;
     return (
       <div>
         <div className="table-responsive">
@@ -47,6 +48,11 @@ class RegistedUsersList extends React.Component {
           </table>
         </div>
 
+        <Pagination
+          pageSize={8}
+          items={this.props.usersDataList}
+          onChangePage={this.onChangePage}
+        />
       </div>
     );
   }

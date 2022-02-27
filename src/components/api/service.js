@@ -27,6 +27,10 @@ class ServiceRequest {
   getRegisteredUsersData(){
     return api.get("/registered_users");
   }
+  
+  findByRegistedName(name) {
+    return api.get(`/registered_users?fullname=${name}`);
+  }
 }
 
 export default new ServiceRequest();
