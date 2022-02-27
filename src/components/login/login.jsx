@@ -37,49 +37,70 @@ class Login extends React.Component{
         this.setState({ [name]: value })
     }
 
-    getUserData = (data, email, password) => {
+    getUserData = (data, email) => {
         let existData = {};
         for(let i = 0; i < data.length; i++){
-            if(data[i].email === email && data[i].password === password){
+            if(data[i].email === email){
                 existData = data[i]
-            }        
+            }    
         } 
         return existData;
     }
 
     login = (e) => {
-        if(this.state.email !== "" || this.state.password !== ""){
-            let emailError = "";
-            let passwordError = "";
-            const getUserData = this.getUserData(this.state.usersData, this.state.email, this.state.password);
-            console.log(getUserData)
-            if(getUserData.email !== this.state.email && getUserData.password !== this.state.password){
-                if(getUserData.email !== this.state.email){
-                    emailError = "This email is not registed"
-                }
-                if(getUserData.password !== this.state.password){
-                    passwordError= "Password is not correct"
-                }
-            } else{
-                localStorage.setItem("userDetails", JSON.stringify(getUserData));
-                localStorage.setItem("token", getUserData.id+getUserData.phone);
-                this.setState({
-                    userDetails: getUserData,
-                    isLoggedIn: !this.state.isLoggedIn
-                });
-            }
-            this.setState({
-                emailError: emailError,
-                passwordError: passwordError
-            })
+      let isValidEmail = this.emailValidation(this.state.email, this.state.usersData);
+      let isValidPassword = this.passwordValidation(this.state.email, this.state.password, this.state.usersData);
 
-        }else{
-            this.setState({
-                emailError: "Email is not valid",
-                passwordError: "Password must be minimum 3 digits"
-            })
+      if(isValidEmail && isValidPassword){
+        localStorage.setItem("userDetails", JSON.stringify(this.state.userDetails));
+        localStorage.setItem("token", this.state.userDetails.id.id+this.state.userDetails.phone);
+        this.setState({
+            isLoggedIn: !this.state.isLoggedIn
+        });
+      }
+      e.preventDefault();
+    }
+
+    emailValidation = (email, data) => {
+      if(email !== ""){
+        let getUser = this.getUserData(data, email);
+        if(getUser.length !== 0 && email === getUser.email){
+          this.setState({
+            userDetails: getUser,
+            emailError: ""
+          })
+          return true
         }
-        e.preventDefault()
+        this.setState({
+          emailError: "Email is incorrect."
+        })
+        return false
+      }
+      this.setState({
+        emailError: "Email is required."
+      })
+      return false
+    }
+
+    passwordValidation = (email, pwd, data) => {
+      if(pwd !== ""){
+        let getUser = this.getUserData(data, email);
+        if(getUser.length !== 0 && email === getUser.email && pwd === getUser.password){
+          this.setState({
+            userDetails: getUser,
+            passwordError: ""
+          })
+          return true
+        }
+        this.setState({
+          passwordError: "Password is incorrect."
+        })
+        return false
+      }
+      this.setState({
+        passwordError: "Password is required."
+      })
+      return false
     }
 
     render() {
