@@ -3,9 +3,9 @@ import { Redirect, Switch, Route } from "react-router-dom";
 import { withRouter } from "react-router";
 import AdminHeader from "./header";
 import LeftMenu from "./left-menu";
-import Users from "./users";
-import Stores from "./stores";
-import Products from "./products";
+import Users from "../users/users";
+import Stores from "../stores/stores";
+import Products from "../products/products";
 import NotFound from "../pageNotFound";
 
 class Admin extends React.Component{

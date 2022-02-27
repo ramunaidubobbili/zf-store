@@ -1,7 +1,6 @@
 import React from "react";
-import Pagination from "./pagination";
 
-class UsersList extends React.Component {
+class RegistedUsersList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,8 +15,7 @@ class UsersList extends React.Component {
   };
 
   render() {
-    const { usersDataList } = this.state;
-
+    const { usersDataList } = this.props;
     return (
       <div>
         <div className="table-responsive">
@@ -25,34 +23,33 @@ class UsersList extends React.Component {
             <thead>
               <tr>
                   <th scope="col">ID</th>
+                  <th scope="col">Registed Date</th>
                   <th scope="col">Name</th>
-                  <th scope="col">Status</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Phone</th>
               </tr>
             </thead>
             <tbody>
               {usersDataList.length !== 0 ?
               usersDataList.map((item, index) => (
               <tr key={index} className="pro-list-info">
-                  <td>{item.userid}</td>
-                  <td>{item.name}</td>
-                  <td><span className={"badge " + (item.status === "Active" ? "bg-success" : "bg-warning text-dark")}>{item.status}</span></td>
+                  <td>{item.id}</td>
+                  <td>{new Date(item.createdAt).toLocaleDateString()}</td>
+                  <td>{item.fullname}</td>
+                  <td>{item.email}</td>
+                  <td>{item.phone}</td>
               </tr>
               ))
               :
-                  <tr><th scope="row" colSpan="3" className="p-3 text-center">No Data Available...</th></tr>
+                  <tr><th scope="row" colSpan="5" className="p-3 text-center">No Data Available...</th></tr>
               }
             </tbody>
           </table>
         </div>
 
-        <Pagination
-          pageSize={8}
-          items={this.props.usersDataList}
-          onChangePage={this.onChangePage}
-        />
       </div>
     );
   }
 }
 
-export default UsersList;
+export default RegistedUsersList;

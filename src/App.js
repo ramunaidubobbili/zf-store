@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 
-import Login from "./components/login";
+import Login from "./components/login/login";
 import Admin from "./components/admin/admin";
 import ProtectedRoute from "./components/protectedRoute";
 import './custom.css';

@@ -23,6 +23,10 @@ class ServiceRequest {
   findByName(name) {
     return api.get(`/usersdata?name=${name}`);
   }
+
+  getRegisteredUsersData(){
+    return api.get("/registered_users");
+  }
 }
 
 export default new ServiceRequest();
