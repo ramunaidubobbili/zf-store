@@ -1,7 +1,7 @@
 import React from "react";
 import Pagination from "../admin/pagination";
 
-class RegistedUsersList extends React.Component {
+class StoresList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,7 +16,7 @@ class RegistedUsersList extends React.Component {
   };
 
   render() {
-    const { usersDataList } = this.state;
+    const { usersDataList } = this.props;
     return (
       <div>
         <div className="table-responsive">
@@ -24,10 +24,10 @@ class RegistedUsersList extends React.Component {
             <thead>
               <tr>
                   <th scope="col">ID</th>
-                  <th scope="col">Registed Date</th>
                   <th scope="col">Name</th>
                   <th scope="col">Email</th>
                   <th scope="col">Phone</th>
+                  <th scope="col">Description</th>
               </tr>
             </thead>
             <tbody>
@@ -35,10 +35,11 @@ class RegistedUsersList extends React.Component {
               usersDataList.map((item, index) => (
               <tr key={index} className="pro-list-info">
                   <td>{item.id}</td>
-                  <td>{new Date(item.createdAt).toLocaleDateString()}</td>
+                  {/* <td>{new Date(item.createdAt).toLocaleDateString()}</td> */}
                   <td>{item.fullname}</td>
                   <td>{item.email}</td>
                   <td>{item.phone}</td>
+                  <td>{item.description}</td>
               </tr>
               ))
               :
@@ -48,14 +49,9 @@ class RegistedUsersList extends React.Component {
           </table>
         </div>
 
-        <Pagination
-          pageSize={8}
-          items={this.props.usersDataList}
-          onChangePage={this.onChangePage}
-        />
       </div>
     );
   }
 }
 
-export default RegistedUsersList;
+export default StoresList;

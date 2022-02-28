@@ -26,16 +26,21 @@ class UsersList extends React.Component {
               <tr>
                   <th scope="col">ID</th>
                   <th scope="col">Name</th>
-                  <th scope="col">Status</th>
+                  <th scope="col">Registed Date</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Phone</th>
               </tr>
             </thead>
             <tbody>
               {usersDataList.length !== 0 ?
               usersDataList.map((item, index) => (
               <tr key={index} className="pro-list-info">
-                  <td>{item.userid}</td>
-                  <td>{item.name}</td>
-                  <td><span className={"badge " + (item.status === "Active" ? "bg-success" : "bg-warning text-dark")}>{item.status}</span></td>
+                  <td>{item.id}</td>
+                  <td>{item.fullname}</td>
+                  <td>{new Date(item.createdAt).toLocaleDateString()}</td>
+                  <td>{item.email}</td>
+                  <td>{item.phone}</td>
+                  {/* <td><span className={"badge " + (item.status === "Active" ? "bg-success" : "bg-warning text-dark")}>{item.status}</span></td> */}
               </tr>
               ))
               :

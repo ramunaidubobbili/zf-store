@@ -1,6 +1,6 @@
 import React from "react";
 import ServiceRequest from "../api/service";
-import RegistedUsersList from "./registedUsersList";
+import StoresList from "./storesList";
 
 class Stores extends React.Component{
     constructor(props) {
@@ -16,7 +16,7 @@ class Stores extends React.Component{
     }
 
     fetchData = () => {
-        ServiceRequest.getRegisteredUsersData()
+        ServiceRequest.getStoresData()
         .then(response => {
             this.setState({
                 data: response.data
@@ -28,18 +28,6 @@ class Stores extends React.Component{
         });
     }
 
-    onChangeSearchName = (e) => {
-        ServiceRequest.findByRegistedName(e.target.value)
-        .then(response => {
-            this.setState({
-            data: response.data
-            });
-            console.log(response.data);
-        })
-        .catch(e => {
-            console.log(e);
-        });
-    }
     render(){
         const {data, searchValue} = this.state;
         return(
@@ -49,10 +37,9 @@ class Stores extends React.Component{
                     placeholder="Search by name" 
                     autoComplete="off"
                     defaultValue={searchValue}
-                    onChange={this.onChangeSearchName}
                     type="text" aria-label="Search"/>
                 </form>
-                <RegistedUsersList usersDataList = {data}/>
+                <StoresList usersDataList = {data}/>
             </div>
         )
     }

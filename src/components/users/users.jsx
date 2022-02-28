@@ -17,7 +17,7 @@ class Users extends React.Component{
     }
 
     fetchData = () => {
-        ServiceRequest.getData()
+        ServiceRequest.getRegisteredUsersData()
         .then(response => {
             this.setState({
                 data: response.data
@@ -30,7 +30,7 @@ class Users extends React.Component{
     }
 
     onChangeSearchName = (e) => {
-        ServiceRequest.findByName(e.target.value)
+        ServiceRequest.findByRegistedName(e.target.value)
         .then(response => {
             this.setState({
             data: response.data
@@ -53,7 +53,7 @@ class Users extends React.Component{
                     defaultValue={searchValue}
                     type="text" aria-label="Search"/>
                 </form>
-                <UsersList usersDataList = {data.length !== 0 ? data : UsersDataList}/>
+                <UsersList usersDataList = {data}/>
             </div>
         )
     }

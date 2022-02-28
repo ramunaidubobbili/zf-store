@@ -1,4 +1,5 @@
 import api from "./createApi";
+import userApi from "./userApi";
 
 class ServiceRequest {
   getData(){
@@ -30,6 +31,14 @@ class ServiceRequest {
   
   findByRegistedName(name) {
     return api.get(`/registered_users?fullname=${name}`);
+  }
+
+  getStoresData(){
+    return userApi.get("/store");
+  }
+
+  findByStoreName(name) {
+    return userApi.get(`/store?fullname=${name}`);
   }
 }
 
