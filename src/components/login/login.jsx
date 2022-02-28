@@ -52,8 +52,11 @@ class Login extends React.Component{
       let isValidPassword = this.passwordValidation(this.state.email, this.state.password, this.state.usersData);
 
       if(isValidEmail && isValidPassword){
-        localStorage.setItem("userDetails", JSON.stringify(this.state.userDetails));
-        localStorage.setItem("token", this.state.userDetails.id.id+this.state.userDetails.phone);
+        let getUser = this.getUserData(this.state.usersData, this.state.email);
+        // console.log("Users Details", getUser)
+        localStorage.setItem("userDetails", JSON.stringify(getUser));
+        // console.log("Users Details Session", localStorage.getItem("userDetails"))
+        localStorage.setItem("token", getUser.id+getUser.phone);
         this.setState({
             isLoggedIn: !this.state.isLoggedIn
         });
@@ -66,7 +69,6 @@ class Login extends React.Component{
         let getUser = this.getUserData(data, email);
         if(getUser.length !== 0 && email === getUser.email){
           this.setState({
-            userDetails: getUser,
             emailError: ""
           })
           return true
@@ -87,7 +89,6 @@ class Login extends React.Component{
         let getUser = this.getUserData(data, email);
         if(getUser.length !== 0 && email === getUser.email && pwd === getUser.password){
           this.setState({
-            userDetails: getUser,
             passwordError: ""
           })
           return true
