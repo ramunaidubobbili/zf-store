@@ -16,7 +16,7 @@ class StoresList extends React.Component {
   };
 
   render() {
-    const { usersDataList } = this.props;
+    const { usersDataList } = this.state;
     return (
       <div>
         <div className="table-responsive">
@@ -49,6 +49,11 @@ class StoresList extends React.Component {
           </table>
         </div>
 
+        <Pagination
+          pageSize={8}
+          items={this.props.usersDataList}
+          onChangePage={this.onChangePage}
+        />
       </div>
     );
   }

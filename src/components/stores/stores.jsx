@@ -28,6 +28,18 @@ class Stores extends React.Component{
         });
     }
 
+    onChangeSearchName = (e) => {
+        ServiceRequest.findByStoreName(e.target.value)
+        .then(response => {
+            this.setState({
+            data: response.data
+            });
+            console.log(response.data);
+        })
+        .catch(e => {
+            console.log(e);
+        });
+    }
     render(){
         const {data, searchValue} = this.state;
         return(
@@ -37,6 +49,7 @@ class Stores extends React.Component{
                     placeholder="Search by name" 
                     autoComplete="off"
                     defaultValue={searchValue}
+                    onChange={this.onChangeSearchName}
                     type="text" aria-label="Search"/>
                 </form>
                 <StoresList usersDataList = {data}/>
