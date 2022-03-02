@@ -40,6 +40,17 @@ class Products extends React.Component{
             console.log(e);
         });
     }
+
+    deleteItem = (id) => {
+      ServiceRequest.deleteProduct(id)
+      .then(response => {
+          console.log(response.data);
+          this.fetchData();
+      })
+      .catch(e => {
+          console.log(e);
+      })
+    }
     render(){
         const {data, searchValue} = this.state;
         return(
@@ -52,7 +63,7 @@ class Products extends React.Component{
                     onChange={this.onChangeSearchName}
                     type="text" aria-label="Search"/>
                 </form>
-                <ProductsList ProductsList = {data} />
+                <ProductsList ProductsList = {data} deleteItem={this.deleteItem} />
             </div>
         )
     }
