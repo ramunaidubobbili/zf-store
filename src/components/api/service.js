@@ -31,6 +31,10 @@ class ServiceRequest {
   getProductsData(){
     return api.get("/products")
   }
+
+  addToCart(data) {
+    return api.post("/cartlist", data);
+  }
 }
 
 export default new ServiceRequest();

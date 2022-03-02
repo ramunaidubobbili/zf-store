@@ -5,7 +5,8 @@ export default class Home extends Component {
     constructor(props){
         super(props);
         this.state = {
-            products: []
+            products: [],
+            cartList: []
         }
     }
     componentDidMount() {
@@ -23,6 +24,68 @@ export default class Home extends Component {
         .catch((e) => {
             console.log(e);
         });
+
+        ServiceRequest.getData()
+        .then(response => {
+            this.setState({
+                cartList: response.data
+            });
+            console.log(response.data);
+        })
+        .catch((e) => {
+            console.log(e);
+        });
+    }
+    
+    quantity = (product) => {
+        let data = this.state.cartList.filter(item => product.name === item.name)
+
+        if(data[0]?.name === product.name){
+            return data[0].quantity+1
+        }
+        return 1;
+    }
+
+    addToCart = (product) => { 
+        let filteredData = this.state.cartList.filter(item => product.name === item.name)[0]
+
+        if(filteredData?.name === product.name){
+            let data = {
+                quantity: filteredData.quantity+1
+            }
+            ServiceRequest.update(filteredData.id, data)
+            .then(response => {
+                this.setState(prevState => ({
+                    filteredData: {
+                    ...prevState.filteredData
+                }
+                }));
+                //console.log("Updated Data: "+response.data);
+                this.fetchData()
+            })
+            .catch(e => {
+                console.log(e);
+            });
+        }else{
+            let data = {
+                name: product.name,
+                image: product.imageUrl,
+                size: "One Size",
+                brand: "Apple",
+                quantity: 1,
+                price: product.price
+            }
+            
+
+            ServiceRequest.addToCart(data)
+            .then(response => {
+                this.setState({
+                    cartList: response.data
+                });
+                this.fetchData()
+                console.log(response.data);
+            })
+        }
     }
   render() {
       const { products } = this.state;
@@ -37,7 +100,7 @@ export default class Home extends Component {
                             <p className="card-text">{product.description}</p>
                             <div className='d-flex justify-content-between align-items-center'>
                                 <p className='fs-5 fw-bold mb-0'>{"$"+product.price}</p>
-                                <button className='btn btn-danger btn-sm'>Add Cart</button>
+                                <button className='btn btn-danger btn-sm' onClick={() => this.addToCart(product)}>Add Cart</button>
                             </div>
                         </div>
                     </div>
