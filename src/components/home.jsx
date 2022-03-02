@@ -37,14 +37,6 @@ export default class Home extends Component {
         });
     }
     
-    quantity = (product) => {
-        let data = this.state.cartList.filter(item => product.name === item.name)
-
-        if(data[0]?.name === product.name){
-            return data[0].quantity+1
-        }
-        return 1;
-    }
 
     addToCart = (product) => { 
         let filteredData = this.state.cartList.filter(item => product.name === item.name)[0]
