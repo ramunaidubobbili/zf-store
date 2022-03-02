@@ -44,7 +44,7 @@ class UsersList extends React.Component {
               </tr>
               ))
               :
-                  <tr><th scope="row" colSpan="3" className="p-3 text-center">No Data Available...</th></tr>
+                  <tr><th scope="row" colSpan="5" className="p-3 text-center">No Data Available...</th></tr>
               }
             </tbody>
           </table>

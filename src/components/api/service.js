@@ -40,6 +40,14 @@ class ServiceRequest {
   findByStoreName(name) {
     return userApi.get(`/store?fullname=${name}`);
   }
+
+  getProductsData(){
+    return api.get("/products");
+  }
+
+  findByProductName(name) {
+    return api.get(`/products?name=${name}`);
+  }
 }
 
 export default new ServiceRequest();
