@@ -27,6 +27,10 @@ class ServiceRequest {
   getUsersData(){
     return api.get("/registered_users")
   }
+
+  getProductsData(){
+    return api.get("/products")
+  }
 }
 
 export default new ServiceRequest();

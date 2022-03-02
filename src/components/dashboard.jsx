@@ -7,6 +7,7 @@ import Profile from "./profile/profile";
 import Wishlist from "./wishlist/wishlist";
 import NotFound from "./pageNotFound";
 import Header from "./header";
+import Home from "./home";
 
 
 class Dashboard extends React.Component{
@@ -42,7 +43,7 @@ class Dashboard extends React.Component{
                             <Wishlist />
                         </Route>
                         <Route exact path={`${match.path}`}>
-                            <Profile />
+                            <Home />
                         </Route>
                         <Route path="*">
                             <NotFound />
