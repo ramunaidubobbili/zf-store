@@ -1,5 +1,6 @@
 import React from "react";
 import Pagination from "../admin/pagination";
+import ServiceRequest from "../api/service";
 
 class ProductsList extends React.Component {
   constructor(props) {
@@ -15,8 +16,20 @@ class ProductsList extends React.Component {
     });
   };
 
+  deleteProduct = (id) => {
+      //let itemIndex = this.state.ProductsList[item.id];
+    ServiceRequest.deleteProduct(id)
+    .then(response => {
+        console.log(response.data);
+        //this.props.fetchData();
+    })
+    .catch(e => {
+        console.log(e);
+    })
+  }
+
   render() {
-    const { ProductsList } = this.props;
+    const { ProductsList } = this.state;
     return (
       <div>
         <div className="table-responsive">
@@ -40,7 +53,7 @@ class ProductsList extends React.Component {
                   <td>{item.name}</td>
                   <td>{"$"+parseFloat(item.price).toFixed(2)}</td>
                   <td>{item.description}</td>
-                  <td><button className="btn btn-danger btn-sm">Delete</button></td>
+                  <td><button className="btn btn-danger btn-sm" onClick={() => this.deleteProduct(item.id)}>Delete</button></td>
               </tr>
               ))
               :
@@ -50,7 +63,11 @@ class ProductsList extends React.Component {
           </table>
         </div>
 
-       
+        <Pagination
+          pageSize={8}
+          items={this.props.ProductsList}
+          onChangePage={this.onChangePage}
+        />
       </div>
     );
   }

@@ -48,6 +48,10 @@ class ServiceRequest {
   findByProductName(name) {
     return api.get(`/products?name=${name}`);
   }
+
+  deleteProduct(id) {
+    return api.delete(`/products/${id}`);
+  }
 }
 
 export default new ServiceRequest();
