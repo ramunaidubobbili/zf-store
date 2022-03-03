@@ -22,6 +22,7 @@ class Cart extends React.Component {
             data: response.data,
             totalPrice: this.totalPrice(response.data)
         });
+        this.props.getTotalCartCount(response.data.length)
         console.log(response.data);
         })
         .catch((e) => {

@@ -1,5 +1,6 @@
 import React from "react";
 import ProfileDetails from "./profileDetails";
+import ServiceRequest from "../api/service";
 
 class Profile extends React.Component{
     constructor(props){
@@ -15,6 +16,17 @@ class Profile extends React.Component{
         this.setState({
             userDetails: JSON.parse(getUserData)
         })
+        this.fetchData();
+    }
+
+    fetchData = () => {
+        ServiceRequest.getData()
+        .then(response => {
+            this.props.getTotalCartCount(response.data.length)
+        })
+        .catch((e) => {
+            console.log(e);
+        });
     }
 
     render(){

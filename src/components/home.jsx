@@ -31,6 +31,7 @@ export default class Home extends Component {
                 cartList: response.data
             });
             console.log(response.data);
+            this.props.getTotalCartCount(response.data.length)
         })
         .catch((e) => {
             console.log(e);

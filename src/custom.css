@@ -37,6 +37,14 @@
 .top-90{
   top: 90px;
 }
+.cartCount {
+  top: -12px;
+  background: #ff0600;
+  min-width: 20px;
+  color: #fff;
+  border-radius: 50%;
+  right: -3px;
+}
 
 
 

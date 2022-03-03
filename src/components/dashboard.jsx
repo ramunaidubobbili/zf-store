@@ -14,7 +14,8 @@ class Dashboard extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            islogout: false
+            islogout: false,
+            totalCartCount: null
         }
     }
     logout = () => {
@@ -23,6 +24,17 @@ class Dashboard extends React.Component{
           islogout: true
         });
     };
+
+    componentDidMount(){
+        this.getTotalCartCount()
+    }
+
+    getTotalCartCount = (count) => {
+        this.setState({
+            totalCartCount: count
+        })  
+    }
+
     render(){
         const { match } = this.props;
         if (this.state.islogout) {
@@ -30,20 +42,20 @@ class Dashboard extends React.Component{
         }
         return(
             <>
-                <Header match={match} logout={this.logout}/>
+                <Header match={match} cartCount={this.state.totalCartCount} logout={this.logout}/>
                 <div className="container pt-5 mt-5">
                     <Switch>
                         <Route path={`${match.path}/profile`}>
-                            <Profile />
+                            <Profile getTotalCartCount={this.getTotalCartCount}/>
                         </Route>
                         <Route path={`${match.path}/cart`}>
-                            <Cart />
+                            <Cart getTotalCartCount={this.getTotalCartCount}/>
                         </Route>
                         <Route exact path={`${match.path}/wishlist`}>
-                            <Wishlist />
+                            <Wishlist getTotalCartCount={this.getTotalCartCount}/>
                         </Route>
                         <Route exact path={`${match.path}`}>
-                            <Home />
+                            <Home getTotalCartCount={this.getTotalCartCount} />
                         </Route>
                         <Route path="*">
                             <NotFound />

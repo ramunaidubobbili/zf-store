@@ -39,10 +39,13 @@ class Header extends React.Component{
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link to={`${this.props.match.path}/cart`} className="nav-link text-secondary text-center px-2 py-0">
+                                            <Link to={`${this.props.match.path}/cart`} className="nav-link position-relative text-secondary text-center px-2 py-0">
                                                 <i className="fa fa-shopping-bag d-block mx-auto"></i>
-                                                <small>Bag</small>
+                                                <small>Bag 
+                                                    {this.props.cartCount !== 0 && <span className="cartCount position-absolute fw-bold">{ this.props.cartCount}</span>}
+                                                </small>
                                             </Link>
+                                            
                                         </li>
                                         <li>
                                             <button className="btn btn-primary ms-2" onClick={this.props.logout}>Logout</button>
