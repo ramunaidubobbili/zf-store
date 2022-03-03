@@ -45,8 +45,9 @@ class ServiceRequest {
     return api.get("/products");
   }
 
-  findByProductName(name) {
-    return api.get(`/products?name=${name}`);
+  findByProductName(input) {
+    let name = isNaN(input) ? "name" : "id"
+    return api.get(`/products?`+name+"="+input);
   }
 
   deleteProduct(id) {
