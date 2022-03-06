@@ -1,30 +1,34 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 
-import Header from './components/header';
-import Home from "./components/home";
-import Profile from './components/profile/profile';
-import Cart from "./components/cart/cart";
-import Wishlist from "./components/wishlist/wishlist";
-import Admin from "./components/admin/admin";
-import './custom.css';
+import Login from "./components/login/Login";
+import Home from "./components/home/Home";
+import ProtectedRoute from "./components/ProtectedRoute";
+import './App.css';
 
-function App() {
+const App = () => {
   return (
     <div className="App">
-      <Router>
-        <Header/>
-        <main>
-          <Routes>
-            <Route path="/" element={ <Admin/> } />
-            <Route path="profile" element={ <Profile/> } />
-            <Route path="wishlist" element={ <Wishlist/> } />
-            <Route path="cart" element={ <Cart/> } />
-          </Routes>
-        </main> 
-      </Router>
+      <main>
+        <Router>
+          <Switch>
+            <Route path={"/login"}>
+              <Login/>
+            </Route>
+            <ProtectedRoute path="/">
+              <Home />
+            </ProtectedRoute>
+            <Route exact path="/">
+              <Redirect exact from="/" to="users" />
+            </Route>
+            <Route path="*">
+              <Redirect from="/" to="users" />
+            </Route>
+          </Switch>
+        </Router>
+      </main>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

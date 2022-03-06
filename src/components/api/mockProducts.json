@@ -1,0 +1,82 @@
+[
+    {
+      "id": "1",
+      "name": "iPhone 6S",
+      "description": "Kogi skateboard tattooed, whatever portland fingerstache coloring book mlkshk leggings flannel dreamcatcher.",
+      "imageUrl": "https://i5.walmartimages.com/asr/eafc6d64-bd74-4e49-848d-a6857117ad98_1.5fcd48524aeadd85372e2532de167065.jpeg",
+      "price": 1499,
+      "category": "Laptop"
+    },
+    {
+      "id": "2",
+      "name": "Macbook Air",
+      "description": "Kogi skateboard tattooed, whatever portland fingerstache coloring book mlkshk leggings flannel dreamcatcher.",
+      "imageUrl": "https://tse3.mm.bing.net/th?id=OIP.zySEUD__Hefol3JgxtmLdAHaHa&pid=Api&P=0&w=171&h=171",
+      "price": 999,
+      "category": "Laptop"
+    },
+    {
+      "id": "3",
+      "name": "Macbook",
+      "description": "Kogi skateboard tattooed, whatever portland fingerstache coloring book mlkshk leggings flannel dreamcatcher.",
+      "imageUrl": "https://tse3.mm.bing.net/th?id=OIP.NHUj6FvgFCrCM_GogC8C6QHaHa&pid=Api&P=0&w=174&h=174",
+      "price": 1499,
+      "category": "Laptop"
+    },
+    {
+      "id": "4",
+      "name": "Macbook Air",
+      "description": "Kogi skateboard tattooed, whatever portland fingerstache coloring book mlkshk leggings flannel dreamcatcher.",
+      "imageUrl": "https://tse3.mm.bing.net/th?id=OIP.zySEUD__Hefol3JgxtmLdAHaHa&pid=Api&P=0&w=171&h=171",
+      "price": 999,
+      "category": "Laptop"
+    },
+    {
+      "id": "5",
+      "name": "Macbook Air 2013",
+      "description": "Kogi skateboard tattooed, whatever portland fingerstache coloring book mlkshk leggings flannel dreamcatcher.",
+      "imageUrl": "https://tse1.mm.bing.net/th?id=OIP.0WPurBW9GwJ1gvLkeUA4wwHaHa&pid=Api&P=0&w=172&h=172",
+      "price": 599,
+      "category": "Laptop"
+    },
+    {
+      "id": "6",
+      "name": "Macbook Air 2012",
+      "description": "Kogi skateboard tattooed, whatever portland fingerstache coloring book mlkshk leggings flannel dreamcatcher.",
+      "imageUrl": "https://tse4.mm.bing.net/th?id=OIP.G_p0vFhSYP8bZ6PzEFFUPwHaHc&pid=Api&P=0&w=163&h=164",
+      "price": 499,
+      "category": "Laptop"
+    },
+    {
+      "id": "7",
+      "name": "iPhone 6S",
+      "description": "Kogi skateboard tattooed, whatever portland fingerstache coloring book mlkshk leggings flannel dreamcatcher.",
+      "imageUrl": "https://i5.walmartimages.com/asr/eafc6d64-bd74-4e49-848d-a6857117ad98_1.5fcd48524aeadd85372e2532de167065.jpeg",
+      "price": 799,
+      "category": "Mobiles"
+    },
+    {
+      "id": "9",
+      "name": "Macbook",
+      "description": "Kogi skateboard tattooed, whatever portland fingerstache coloring book mlkshk leggings flannel dreamcatcher.",
+      "imageUrl": "https://tse3.mm.bing.net/th?id=OIP.NHUj6FvgFCrCM_GogC8C6QHaHa&pid=Api&P=0&w=174&h=174",
+      "price": 1499,
+      "category": "Laptop"
+    },
+    {
+      "id": "10",
+      "name": "Macbook Air",
+      "description": "Kogi skateboard tattooed, whatever portland fingerstache coloring book mlkshk leggings flannel dreamcatcher.",
+      "imageUrl": "https://tse3.mm.bing.net/th?id=OIP.zySEUD__Hefol3JgxtmLdAHaHa&pid=Api&P=0&w=171&h=171",
+      "price": 999,
+      "category": "Laptop"
+    },
+    {
+      "id": "11",
+      "name": "Macbook Air 2013",
+      "description": "Kogi skateboard tattooed, whatever portland fingerstache coloring book mlkshk leggings flannel dreamcatcher.",
+      "imageUrl": "https://tse1.mm.bing.net/th?id=OIP.0WPurBW9GwJ1gvLkeUA4wwHaHa&pid=Api&P=0&w=172&h=172",
+      "price": 599,
+      "category": "Laptop"
+    }
+  ]
