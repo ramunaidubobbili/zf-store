@@ -1,57 +1,39 @@
 import api from "./createApi";
-import userApi from "./userApi";
 
 class ServiceRequest {
   getData(){
-    return api.get("/usersdata");
+    return api.get("/cartlist");
   }
   get(id) {
-    return api.get(`/usersdata/${id}`);
-  }
-
-  create(data) {
-    return api.post("/usersdata", data);
+    return api.get(`/cartlist/${id}`);
   }
 
   update(id, data) {
-    return api.put(`/usersdata/${id}`, data);
+    return api.put(`/cartlist/${id}`, data);
   }
 
   delete(id) {
-    return api.delete(`/usersdata/${id}`);
+    return api.delete(`/cartlist/${id}`);
   }
 
   findByName(name) {
-    return api.get(`/usersdata?name=${name}`);
+    return api.get(`/cartlist?name=${name}`);
   }
 
-  getRegisteredUsersData(){
-    return api.get("/registered_users");
-  }
-  
-  findByRegistedName(name) {
-    return api.get(`/registered_users?fullname=${name}`);
+  create(data) {
+    return api.post("/registered_users", data);
   }
 
-  getStoresData(){
-    return userApi.get("/store");
-  }
-
-  findByStoreName(name) {
-    return userApi.get(`/store?fullname=${name}`);
+  getUsersData(){
+    return api.get("/registered_users")
   }
 
   getProductsData(){
-    return api.get("/products");
+    return api.get("/products")
   }
 
-  findByProductName(input) {
-    let name = isNaN(input) ? "name" : "id"
-    return api.get(`/products?`+name+"="+input);
-  }
-
-  deleteProduct(id) {
-    return api.delete(`/products/${id}`);
+  addToCart(data) {
+    return api.post("/cartlist", data);
   }
 }
 

@@ -1,58 +1,89 @@
-import React, {useState} from 'react';
-import { Redirect } from "react-router-dom";
+import React, {useEffect, useState} from 'react';
+import { Redirect, Link } from "react-router-dom";
 import Header from './Header';
+import ServiceRequest from "../api/service";
 
 const Login = () => {
-    const [userId, setUserId] = useState("");
-    const [userPwd, setUserPwd] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [userIdError, setUserIdError] = useState("");
-    const [userPasswordError, setUserPasswordError] = useState("");
+    const [emailError, setEmailError] = useState("");
+    const [passwordError, setPasswordError] = useState("");
+    const [usersData, setUsersData] = useState([]);
     // const token = localStorage.getItem("token");
+
+    useEffect(() => {
+        ServiceRequest.getUsersData()
+        .then(response => {
+            setUsersData(response.data)
+            //console.log(response.data);
+        })
+        .catch((e) => {
+            console.log(e);
+        });
+    }, [])
 
     const handleChange = (e) => {
         const { name, value } = e.target
-        if(name === "user_id"){
-            setUserId(value);
+        if(name === "email"){
+            setEmail(value);
         }
-        if(name === "user_password"){
-            setUserPwd(value);
+        if(name === "password"){
+            setPassword(value);
         }
+    }
+
+    const getUserData = (data, email) => {
+        let existData = {};
+        for(let i = 0; i < data.length; i++){
+            if(data[i].email === email){
+                existData = data[i]
+            }    
+        } 
+        return existData;
     }
 
     const login = (e) => {
-        let isValidUserId = userNameValidation(userId);
-        let isValidPassword = passwordValidation(userPwd);
-        if(isValidUserId && isValidPassword){
-        localStorage.setItem("token", "T");
-        setIsLoggedIn(true);
-        }
-        (e).preventDefault();
+      let isValidEmail = emailValidation(email, usersData);
+      let isValidPassword = passwordValidation(email, password, usersData);
+
+      if(isValidEmail && isValidPassword){
+        let getUser = getUserData(usersData, email);
+        // console.log("Users Details", getUser)
+        localStorage.setItem("userDetails", JSON.stringify(getUser));
+        // console.log("Users Details Session", localStorage.getItem("userDetails"))
+        localStorage.setItem("token", getUser.id+getUser.phone);
+        setIsLoggedIn(!isLoggedIn)
+      }
+      e.preventDefault();
     }
 
-    const userNameValidation = (userid) => {
-        if(userid !== ""){
-        if(userid === "admin"){
-            setUserIdError("");
-            return true
+    const emailValidation = (email, data) => {
+      if(email !== ""){
+        let getUser = getUserData(data, email);
+        if(getUser.length !== 0 && email === getUser.email){
+          setEmailError("")
+          return true
         }
-        setUserIdError("User id is incorrect.");
+        setEmailError("Email is incorrect.")
         return false
-        }
-        setUserIdError("User id is required.")
-        return false
+      }
+      setEmailError("Email is required.")
+      return false
     }
-    const passwordValidation = (pwd) => {
-        if(pwd !== ""){
-        if(pwd === "123"){
-            setUserPasswordError("")
-            return true
+
+    const passwordValidation = (email, pwd, data) => {
+      if(pwd !== ""){
+        let getUser = getUserData(data, email);
+        if(getUser.length !== 0 && email === getUser.email && pwd === getUser.password){
+            setPasswordError("");
+          return true
         }
-        setUserPasswordError("User password is incorrect.");
+        setPasswordError("Password is incorrect.");
         return false
-        }
-        setUserPasswordError("User password is required.");
-        return false
+      }
+      setPasswordError("Password is required.")
+      return false
     }
 
     if (isLoggedIn) {
@@ -69,20 +100,21 @@ const Login = () => {
                             <form noValidate="" autoComplete="off" className="form-inline">
                                 <div className="mb-3 mr-sm-2 form-group">
                                     <label htmlFor="user_id" className="visually-hidden">Username</label>
-                                    <input name="user_id" id="user_id" placeholder="User Name"  onChange={handleChange} className={"py-2 px-3 form-control " + (userIdError !== "" ? "is-invalid" : "")} />
-                                    {userIdError !== "" && <div className='invalid-feedback text-start'>{userIdError}</div>}
+                                    <input name="email" id="email" placeholder="Email"  onChange={handleChange} className={"py-2 px-3 form-control " + (emailError !== "" ? "is-invalid" : "")} />
+                                    {emailError !== "" && <div className='invalid-feedback text-start'>{emailError}</div>}
                                 </div>
                                 <div className="mb-3 mr-sm-2 form-group">
                                     <label htmlFor="user_password" className="visually-hidden">Password</label>
-                                    <input type="password" name="user_password" id="user_password" placeholder="Password" onChange={handleChange} className={"py-2 px-3 form-control " + (userPasswordError !== "" ? "is-invalid" : "")}/>
-                                    {userPasswordError !== "" && <div className='invalid-feedback text-start'>{userPasswordError}</div>}
-                                </div>
+                                    <input type="password" name="password" id="password" placeholder="Password" onChange={handleChange} className={"py-2 px-3 form-control " + (passwordError !== "" ? "is-invalid" : "")}/>
+                                    {passwordError !== "" && <div className='invalid-feedback text-start'>{passwordError}</div>}</div>
                                 <div className="d-grid gap-2">
                                     <button type="submit" onClick={login} className="py-2 px-3 btn btn-primary" >Login</button>
                                 </div>
                             </form>
                         </div>
-                        <i className="small text-secondry">Username === "admin" && Password === "123"</i>
+                        <div>
+                            Not yet registered? <Link to="/register" className='link'>Create Account</Link>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -90,4 +122,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default Login;

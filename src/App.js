@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-d
 import Login from "./components/login/Login";
 import Home from "./components/home/Home";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Register from "./components/login/Register";
 import './App.css';
 
 const App = () => {
@@ -12,17 +13,20 @@ const App = () => {
       <main>
         <Router>
           <Switch>
-            <Route path={"/login"}>
-              <Login/>
+            <Route path="/login">
+              <Login />
             </Route>
-            <ProtectedRoute path="/">
+            <Route path="/register">
+              <Register/>
+            </Route>
+            <ProtectedRoute path="/home">
               <Home />
             </ProtectedRoute>
             <Route exact path="/">
-              <Redirect exact from="/" to="users" />
+              <Redirect exact from="/" to="home" />
             </Route>
             <Route path="*">
-              <Redirect from="/" to="users" />
+              <Redirect from="/" to="home" />
             </Route>
           </Switch>
         </Router>
