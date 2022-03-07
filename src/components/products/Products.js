@@ -4,7 +4,6 @@ import ServiceRequest from "../api/service";
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [cartList, setCartList] = useState([]);
-  
 
   useEffect(() => {
     fetchData()
@@ -24,7 +23,7 @@ const Products = () => {
     .then(response => {
       setCartList(response.data);
       console.log(response.data);
-      //this.props.getTotalCartCount(response.data.length)
+      localStorage.setItem("cartListCount", response.data.length)
     })
     .catch((e) => {
         console.log(e);
@@ -41,11 +40,6 @@ const addToCart = (product) => {
         }
         ServiceRequest.update(filteredData.id, data)
         .then(response => {
-            this.setState(prevState => ({
-                filteredData: {
-                ...prevState.filteredData
-            }
-            }));
             //console.log("Updated Data: "+response.data);
             fetchData()
         })
@@ -62,7 +56,6 @@ const addToCart = (product) => {
             price: product.price
         }
         
-
         ServiceRequest.addToCart(data)
         .then(response => {
           setCartList(response.data);

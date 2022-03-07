@@ -77,19 +77,17 @@ const Register = () => {
                 })
                 console.log(e);
             });
-            this.setState({
-                fullname: "",
-                email: "",
-                phone: "",
-                password: "",
-                c_password: ""
-            });
+            setFullname("")
+            setEmail("")
+            setPhone("")
+            setPassword("")
+            setConfirmPassword("")
         }
         e.preventDefault()
     }
 
     const fullnameValidation = (name) => {
-        if(name === "" && name.length < 3){
+        if(name === "" || name.length < 3){
             setFullnameError("Full Name must be minimum 3 digits.");
             return true
         }
@@ -146,7 +144,7 @@ const Register = () => {
     }
 
     if(isRegisted){
-        <Redirect to="/login"/>
+        return <Redirect to="/login"/>
     }
     return (
         <>
@@ -189,7 +187,7 @@ const Register = () => {
                                     {passwordError !== "" && <div className='invalid-feedback text-start'>{passwordError}</div>}
                                 </div>
                                 <div className="d-grid gap-2">
-                                    <button type="submit" onClick={this.register} className="py-2 px-3 btn btn-primary" >Register</button>
+                                    <button type="submit" onClick={register} className="py-2 px-3 btn btn-primary" >Register</button>
                                 </div>
                             </form>
                         </div>

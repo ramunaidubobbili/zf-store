@@ -18,12 +18,8 @@ const Home = ({match}) => {
         setIsLogout(true);
     };
 
-    const getTotalCartCount = (count) => {
-        setTotalCartCount(count); 
-    }
-
     useEffect(() => {
-        getTotalCartCount()
+        setTotalCartCount(localStorage.getItem("cartListCount"))
     }, [])
 
     if (isLogout) {
@@ -36,16 +32,16 @@ const Home = ({match}) => {
             <div className="container pt-5 mt-5">
                 <Switch>
                     <Route path={`${match.path}/profile`}>
-                        <Profile getTotalCartCount={getTotalCartCount}/>
+                        <Profile/>
                     </Route>
                     <Route path={`${match.path}/cart`}>
-                        <Cart getTotalCartCount={getTotalCartCount}/>
+                        <Cart/>
                     </Route>
                     <Route exact path={`${match.path}/wishlist`}>
-                        <Wishlist getTotalCartCount={getTotalCartCount}/>
+                        <Wishlist/>
                     </Route>
                     <Route exact path={`${match.path}`}>
-                        <Products getTotalCartCount={getTotalCartCount} />
+                        <Products/>
                     </Route>
                     <Route path="*">
                         <NotFound />

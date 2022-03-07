@@ -35,11 +35,6 @@ const Cart = () => {
         }
         ServiceRequest.update(item.id, data)
         .then(response => {
-            this.setState(prevState => ({
-            item: {
-                ...prevState.item
-            }
-            }));
             //console.log("Updated Data: "+response.data);
             fetchData()
         })
@@ -55,11 +50,6 @@ const Cart = () => {
         
             ServiceRequest.update(item.id, data)
             .then(response => {
-                this.setState(prevState => ({
-                item: {
-                    ...prevState.item
-                }
-                }));
                 //console.log("Updated Data: "+response.data);
                 fetchData()
             })
