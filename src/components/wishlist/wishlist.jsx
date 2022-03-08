@@ -2,9 +2,6 @@ import React from "react";
 import ServiceRequest from "../api/service";
 
 class Wishlist extends React.Component{
-    constructor(props){
-        super(props)
-    }
 
     componentDidMount(){
         this.fetchData();
