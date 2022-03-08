@@ -31,6 +31,12 @@ const Home = ({match}) => {
                         <Route path={`/users`}>
                             <Users/>
                         </Route>
+                        <Route path={`/stores`}>
+                            <Stores/>
+                        </Route>
+                        <Route exact path={`/products`}>
+                            <Products/>
+                        </Route>
                         <Route exact path={`${match.path}`}>
                             <Users />
                         </Route> 
