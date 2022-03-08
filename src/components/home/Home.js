@@ -28,6 +28,18 @@ const Home = ({match}) => {
                 <div className="row pt-5">
                     <LeftMenu match={match}/>
                     <Switch>
+                        <Route path={`/users`}>
+                            <Users/>
+                        </Route>
+                        <Route path={`/stores`}>
+                            <Stores/>
+                        </Route>
+                        <Route exact path={`/products`}>
+                            <Products/>
+                        </Route>
+                        <Route exact path={`${match.path}`}>
+                            <Users />
+                        </Route> 
                         <Route path="*">
                             <PageNotFound/>
                         </Route>
