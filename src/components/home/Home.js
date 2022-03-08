@@ -31,6 +31,15 @@ const Home = ({match}) => {
             <Header match={match} cartCount={totalCartCount} logout={logout}/>
             <div className="container pt-5 mt-5">
                 <Switch>
+                    <Route path={`${match.path}/profile`}>
+                        <Profile/>
+                    </Route>
+                    <Route path={`${match.path}/cart`}>
+                        <Cart/>
+                    </Route>
+                    <Route exact path={`${match.path}/wishlist`}>
+                        <Wishlist/>
+                    </Route>
                     <Route exact path={`${match.path}`}>
                         <Products/>
                     </Route>
