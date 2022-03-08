@@ -16,17 +16,8 @@ const App = () => {
             <Route path="/login">
               <Login />
             </Route>
-            <Route path="/register">
+            <Route path="/">
               <Register/>
-            </Route>
-            <ProtectedRoute path="/home">
-              <Home />
-            </ProtectedRoute>
-            <Route exact path="/">
-              <Redirect exact from="/" to="home" />
-            </Route>
-            <Route path="*">
-              <Redirect from="/" to="home" />
             </Route>
           </Switch>
         </Router>
