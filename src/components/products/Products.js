@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useMemo } from "react";
-import Pagination from "../shared_components/Pagination";
 import TableHeader from "../shared_components/TableHeader"
 import Search from "../shared_components/Search";
 import ServiceRequest from "../api/service";
@@ -67,10 +66,7 @@ const Products = () => {
       }
     }
 
-    return filteredResult.slice(
-      (currentPage - 1) * ITEMS_PER_PAGE,
-      (currentPage - 1) * ITEMS_PER_PAGE + ITEMS_PER_PAGE
-    );
+    return filteredResult
   }, [results, currentPage, search, sorting]);
 
   const deleteItem = (id) => {
@@ -117,14 +113,6 @@ const Products = () => {
                   ))}
                 </tbody>
               </table>
-              <div className="d-flex justify-content-end">
-                <Pagination
-                total={totalItems}
-                itemsPerPage={ITEMS_PER_PAGE}
-                currentPage={currentPage}
-                onPageChange={(page) => setCurrentPage(page)}
-                />
-              </div>
             </>
           ) : (    
             <h4 className="p-3 text-center">No result found</h4>
