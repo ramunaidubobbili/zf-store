@@ -23,7 +23,6 @@ const Home = ({match}) => {
     }, [totalCartCount])
 
     const refreshCount = () => {
-        debugger;
         setTotalCartCount(localStorage.getItem("cartListCount"))
     }
 

@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { Redirect, Link } from "react-router-dom";
 import Header from './Header';
 import ServiceRequest from "../api/service";
+import Input from './Input';
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -25,12 +26,7 @@ const Login = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target
-        if(name === "email"){
-            setEmail(value);
-        }
-        if(name === "password"){
-            setPassword(value);
-        }
+        name === "email" ? setEmail(value) : setPassword(value)
     }
 
     const getUserData = (data, email) => {
@@ -98,15 +94,8 @@ const Login = () => {
                         <div className="shadow-sm p-4 mb-3 bg-body border card card-body">
                             <h5 className="mb-4 card-title">Login</h5>
                             <form noValidate="" autoComplete="off" className="form-inline">
-                                <div className="mb-3 mr-sm-2 form-group">
-                                    <label htmlFor="user_id" className="visually-hidden">Username</label>
-                                    <input name="email" id="email" placeholder="Email"  onChange={handleChange} className={"py-2 px-3 form-control " + (emailError !== "" ? "is-invalid" : "")} />
-                                    {emailError !== "" && <div className='invalid-feedback text-start'>{emailError}</div>}
-                                </div>
-                                <div className="mb-3 mr-sm-2 form-group">
-                                    <label htmlFor="user_password" className="visually-hidden">Password</label>
-                                    <input type="password" name="password" id="password" placeholder="Password" onChange={handleChange} className={"py-2 px-3 form-control " + (passwordError !== "" ? "is-invalid" : "")}/>
-                                    {passwordError !== "" && <div className='invalid-feedback text-start'>{passwordError}</div>}</div>
+                                <Input type="email" for_name_id='email' label="Email" value={email} error={emailError} handleChange={handleChange} />
+                                <Input type="password" for_name_id='password' label="Password" value={password} error={passwordError} handleChange={handleChange} />
                                 <div className="d-grid gap-2">
                                     <button type="submit" onClick={login} className="py-2 px-3 btn btn-primary" >Login</button>
                                 </div>
