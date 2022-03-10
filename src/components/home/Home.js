@@ -11,11 +11,16 @@ import Products from "../products/Products";
 
 const Home = ({match}) => {
     const [isLogout, setIsLogout] = useState(false);
+    const [totalCartCount, setTotalCartCount] = useState(null);
 
     const logout = () => {
         localStorage.removeItem("token");
         setIsLogout(true);
     };
+
+    useEffect(() => {
+        setTotalCartCount(localStorage.getItem("cartListCount"))
+    }, [])
 
     if (isLogout) {
         return <Redirect to="/login" />;
@@ -23,7 +28,7 @@ const Home = ({match}) => {
 
     return (
         <>
-            <Header match={match} logout={logout}/>
+            <Header match={match} cartCount={totalCartCount} logout={logout}/>
             <div className="container pt-5 mt-5">
                 <Switch>
                     <Route path={`${match.path}/profile`}>
