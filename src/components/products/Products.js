@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ServiceRequest from "../api/service";
 
-const Products = () => {
+const Products = ({refreshCount}) => {
   const [products, setProducts] = useState([]);
   const [cartList, setCartList] = useState([]);
 
@@ -24,6 +24,7 @@ const Products = () => {
       setCartList(response.data);
       console.log(response.data);
       localStorage.setItem("cartListCount", response.data.length)
+      refreshCount()
     })
     .catch((e) => {
         console.log(e);

@@ -19,8 +19,13 @@ const Home = ({match}) => {
     };
 
     useEffect(() => {
+        refreshCount()
+    }, [totalCartCount])
+
+    const refreshCount = () => {
+        debugger;
         setTotalCartCount(localStorage.getItem("cartListCount"))
-    }, [])
+    }
 
     if (isLogout) {
         return <Redirect to="/login" />;
@@ -35,13 +40,13 @@ const Home = ({match}) => {
                         <Profile/>
                     </Route>
                     <Route path={`${match.path}/cart`}>
-                        <Cart/>
+                        <Cart refreshCount={refreshCount}/>
                     </Route>
                     <Route exact path={`${match.path}/wishlist`}>
                         <Wishlist/>
                     </Route>
                     <Route exact path={`${match.path}`}>
-                        <Products/>
+                        <Products refreshCount={refreshCount}/>
                     </Route>
                     <Route path="*">
                         <NotFound />
